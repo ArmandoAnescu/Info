@@ -16,7 +16,7 @@ Per la risposta aperta:
 Deve essere effettuata un'analisi del testo fornendo il numero di parole, consonanti, vocali e caratteri numerici presenti. Per questa domanda, non è richiesto il confronto con una risposta corretta.
 Requisiti aggiuntivi del form:
 Deve includere campi obbligatori per nome, cognome, email e password dell'utente.
-Il front end deve essere realizzao con HTML,CSS e JS.
+Il front end deve essere realizzao con HTML,CSS e js.
  * */
 ?>
 <!doctype html>
