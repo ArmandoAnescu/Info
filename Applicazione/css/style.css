@@ -1,8 +1,23 @@
 .container{
     margin: 20px;
-
+    align-items: center;
 }
-
+html, body {
+    height: 100%; /* Assicura che la pagina occupi tutta l'altezza */
+}
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0; /* Rimuove margini predefiniti */
+}
+footer.container-fluid {
+    margin-top: auto; /* Spinge il footer in basso */
+    background-color: darkgray;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box; /* Considera padding e bordi nella larghezza */
+    text-align: center;
+}
 form{
 
     margin-left: 20px;
@@ -19,4 +34,37 @@ form{
 }
 #submit:hover{
     background-color: green;
+}
+#tabella-libri {
+    border: 5px solid gray; /* Bordo esterno più spesso */
+    border-radius: 10px; /* Arrotonda i bordi */
+    overflow: hidden; /* Assicura che il contenuto non sbordi */
+    border-collapse:inherit; /* Evita conflitti con i bordi interni */
+}
+
+#tabella-libri {
+    width: 85%; /* Riduci la larghezza se necessario */
+    border-radius: 10px;
+    overflow: hidden;
+    border-width: 5px;
+}
+#tabella-libri thead{
+    border-top-left-radius: 10px; /* Arrotonda il bordo in alto a sinistra */
+    border-top-right-radius: 10px; /* Arrotonda il bordo in alto a destra */
+    overflow: hidden;
+}
+
+.container {
+    max-width: 100%; /* Impedisce che il contenitore superi la larghezza */
+    overflow-x: hidden; /* Nasconde qualsiasi contenuto che sfora orizzontalmente */
+    padding: 15px; /* Aggiungi spazio interno adeguato */
+    box-sizing: border-box; /* Includi padding nella larghezza totale */
+}
+p {
+    word-wrap: break-word; /* Forza la rottura del testo lungo */
+    white-space: normal; /* Evita spazi inutili */
+}
+p {
+    word-wrap: break-word; /* Forza la rottura del testo lungo */
+    white-space: normal; /* Evita spazi inutili */
 }

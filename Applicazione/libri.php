@@ -1,11 +1,11 @@
 <?php
 require 'header.php';
 ?>
-
-    <h1 class="mt-5 pt-5">Catalogo</h1>
+<div class="container mt-5">
+<h1 class="mt-5 pt-5">Catalogo</h1>
 <br>
-<table class="table table-dark table-striped table-bordered" id="tabella-libri">
-    <caption style="caption-side:top">Lista libri</caption>
+<div class="table-responsive">
+<table class="table table-dark table-striped table-bordered rounded" id="tabella-libri">
     <thead>
     <tr>
     </tr>
@@ -28,18 +28,18 @@ require 'header.php';
             <td><?= $libro['titolo'];?></td>
             <td><?= $libro['autore'];?></td>
             <td><?= $libro['genere'];?></td>
-            <td><?= $libro['anno_pubblicazione']?></td><!-- aggiungo anche il link per scrivere una email -->
+            <td><?= $libro['anno_pubblicazione']?></td>
             <td><?= $libro['prezzo']; ?></td>
             <td>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <a class="btn btn-success" href="#">
 
                             <i class="fa fa-pen"></i>
                             UPDATE
                         </a>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         <a onclick="return confirm('Vuoi eliminare lo user?')" class="btn btn-danger" href="#">
                             <i class="fa fa-trash"></i>
                             DELETE
@@ -53,11 +53,6 @@ require 'header.php';
     }
     ?>
     <tfoot>
-    <tr>
-        <td colspan="6">
-        </td><!-- Se non ci sono user o i par della ricerca non trovano niente lo dico -->
-    </tr>
-    </tfoot>
     <?php
     }else{ ?>
         <tr>
@@ -68,5 +63,7 @@ require 'header.php';
     ?>
     </tbody>
 </table>
+</div>
+</div>
 <?php
 require 'footer.php';
