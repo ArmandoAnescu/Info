@@ -1,8 +1,9 @@
 <?php
 require 'header.php';
 ?>
-<body>
-    <h1>Catalogo</h1>
+
+    <h1 class="mt-5 pt-5">Catalogo</h1>
+<br>
 <table class="table table-dark table-striped table-bordered" id="tabella-libri">
     <caption style="caption-side:top">Lista libri</caption>
     <thead>

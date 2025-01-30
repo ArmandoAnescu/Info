@@ -28,7 +28,7 @@
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
 </head>
-<header>
+<body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php">Library.io</a>
@@ -54,4 +54,3 @@
             </div>
         </div>
     </nav>
-</header>

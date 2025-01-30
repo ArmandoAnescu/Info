@@ -3,7 +3,7 @@ require 'header.php';
 ?>
 
 <body>
-    <h2>Inserimento libro:</h2>
+    <h2 class="mt-5 pt-5">Inserimento libro:</h2>
     <br>
 <form method="post" action="inserimento.php">
     <label for="nomelibro">Inserisci il nome dei libri</label>

@@ -20,8 +20,3 @@ form{
 #submit:hover{
     background-color: green;
 }
-#tabella-libri{
-    align-self: center;
-    align-items: center;
-    width: 900px;
-}

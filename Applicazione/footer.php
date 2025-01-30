@@ -1,5 +1,3 @@
-<?php
-?>
 <footer class="container">
     <p>&copy; Anescu Luis Armando, Inc. &middot;</p>
 </footer>
