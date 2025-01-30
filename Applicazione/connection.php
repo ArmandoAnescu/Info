@@ -7,28 +7,33 @@ function logError(Exception $e):void{
     error_log($e->getMessage()."---".date('Y-m-d H:i:s'."\n"),3,'dberror/error_logfile.log');
     echo "DB error.Try again";
 }
-function LeggiLibri($db):void{
+function LeggiLibri():?array{
+    global $db;
     $query="SELECT * FROM libreria";
     try {
         $stm = $db->prepare($query);
         $stm->execute();
-        while ($libro=$stm->fetc()){
-            echo "Titolo: $libro->titolo Autore:$libro->autore Genere:$libro->genere";
-        }
+        $libri=$stm->fetchAll(PDO::FETCH_ASSOC);
+        $stm->closeCursor();
     }catch (Exception $e){
         logError($e);
+        return null;
     }
+    return $libri;
 }
-function AggiungiLibro($db,$titolo,$autore,$prezzo,$anno_pubblicazione,$genere):void{
+function AggiungiLibro($titolo,$autore,$prezzo,$anno_pubblicazione,$genere):void{
+    global $db;
     $query="INSERT INTO libreria (titolo,autore,genere,prezzo,anno_pubblicazione) 
-VALUES(:titolo,:autore,:genere,:prezzo,NOW())";
+VALUES(:titolo,:autore,:genere,:prezzo,:anno)";
     try {
         $stm=$db->prepare($query);
         $stm->bindValue(':titolo',$titolo);
         $stm->bindValue(':autore',$autore);
         $stm->bindValue(':genere',$genere);
         $stm->bindValue(':prezzo',$prezzo);
+        $stm->bindValue(':anno',$anno_pubblicazione);
         if($stm->execute()){
+            echo 'inserimento avvenuto con successo';
             $stm->closeCursor();
         }else{
             throw new PDOException('Errore utente non inserito correttamnete');
@@ -37,7 +42,8 @@ VALUES(:titolo,:autore,:genere,:prezzo,NOW())";
         logError($e);
     }
 }
-function RimuoviLibro($db,$titolo,$autore){
+function RimuoviLibro($titolo,$autore){
+    global $db;
     $query="DELETE FROM libreria WHERE titolo=:titolo AND autore=:autore";
     try {
         $stm=$db->prepare($query);
@@ -49,4 +55,7 @@ function RimuoviLibro($db,$titolo,$autore){
     }catch (Exception $e){
         logError($e);
     }
+}
+function AggiornaLibro(){
+
 }

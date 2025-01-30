@@ -1,0 +1,27 @@
+.container{
+    margin: 20px;
+
+}
+
+form{
+
+    margin-left: 20px;
+    font-size: large;
+}
+
+#submit{
+    background-color: #0a53be;
+    color: white;
+    padding: 10px;
+    width: 200px;
+    margin:5px;
+    border-radius: 5px;
+}
+#submit:hover{
+    background-color: green;
+}
+#tabella-libri{
+    align-self: center;
+    align-items: center;
+    width: 900px;
+}
