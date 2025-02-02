@@ -1,4 +1,5 @@
 <?php
+$id=$_REQUEST['id']; 
 $oldName = isset($_REQUEST['titolo']) ? $_REQUEST['titolo'] : '';
 $oldAuthor = isset($_REQUEST['autore']) ? $_REQUEST['autore'] : '';
 $oldGenre = isset($_REQUEST['genere']) ? $_REQUEST['genere'] : '';
@@ -11,7 +12,7 @@ require 'header.php';
 <body>
     <h2 class="mt-5 pt-5 form-title">Aggiornamento libro:</h2>
     <br>
-    <form method="post" action="aggiornamento.php?oldName=<?=$oldName?>$oldAuthor=<?=$oldAuthor?>">
+    <form method="post" action="aggiornamento.php?id=<?=$id?>">
         <label for="nomelibro">Inserisci il nome dei libri</label>
         <br>
         <input type="text" id="book" placeholder="name" name="nomelibro" value="<?=$oldName?>" required>

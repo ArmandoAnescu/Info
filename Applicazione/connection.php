@@ -42,13 +42,12 @@ VALUES(:titolo,:autore,:genere,:prezzo,:anno)";
         logError($e);
     }
 }
-function RimuoviLibro($titolo,$autore){
+function RimuoviLibro($id){
     global $db;
-    $query="DELETE FROM libreria WHERE titolo=:titolo AND autore=:autore";
+    $query="DELETE FROM libreria WHERE id=:id";
     try {
         $stm=$db->prepare($query);
-        $stm->bindValue(':titolo',$titolo);
-        $stm->bindValue(':autore',$autore);
+        $stm->bindValue(':id',$id);
         if($stm->execute()){
             $stm->closeCursor();
         }
@@ -56,10 +55,11 @@ function RimuoviLibro($titolo,$autore){
         logError($e);
     }
 }
-function AggiornaLibro($oldName,$oldAuthor,$titolo,$autore,$prezzo,$anno_pubblicazione,$genere){
+function AggiornaLibro($id,$titolo,$autore,$prezzo,$anno_pubblicazione,$genere){
     global $db;
-    $query="UPDATE libreria SET titolo=:titolo,autore=:autore,prezzo=:prezzo,'anno_pubblicazione:anno_pubblicazione,genere=:genere
-    WHERE titolo=:vecchioTitolo AND autore=:vecchioAutore";
+    $query="UPDATE libreria 
+    SET titolo=:titolo,autore=:autore,prezzo=:prezzo,anno_pubblicazione=:anno_pubblicazione,genere=:genere
+    WHERE id=:id";
     try {
         $stm=$db->prepare($query);
         $stm->bindValue(':titolo',$titolo);
@@ -67,8 +67,7 @@ function AggiornaLibro($oldName,$oldAuthor,$titolo,$autore,$prezzo,$anno_pubblic
         $stm->bindValue(':prezzo',$prezzo);
         $stm->bindValue(':anno_pubblicazione',$anno_pubblicazione);
         $stm->bindValue(':genere',$genere);
-        $stm->bindValue(':veccchioTitolo',$oldName);
-        $stm->bindValue(':veccchioAutore',$oldAuthor);
+        $stm->bindValue(':id',$id);
         if($stm->execute()){
             $stm->closeCursor();
         }

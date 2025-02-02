@@ -9,8 +9,9 @@ require 'header.php';
     <thead>
     <tr>
     </tr>
-    <tr><!-- passo l'order by e il dir così quando il modo di vedere tra asc e desc non si resetta -->
-        <th >Titolo</th><!--creo i le colonne con i dati da mostrare-->
+    <tr>
+        <th>Id</th>
+        <th>Titolo</th><!--creo i le colonne con i dati da mostrare-->
         <th>Autore</th>
         <th>Genere</th>
         <th>Anno Pubblicazione</th>
@@ -25,6 +26,7 @@ require 'header.php';
     if($libri){//controllo che gli user esistano altrimenti dico che non ho trovato nulla
     foreach($libri as $libro){?>
         <tr>
+            <td><?=$libro['id'];?></td>
             <td><?= $libro['titolo'];?></td>
             <td><?= $libro['autore'];?></td>
             <td><?= $libro['genere'];?></td>
@@ -32,19 +34,18 @@ require 'header.php';
             <td><?= $libro['prezzo']; ?></td>
             <td>
                 <div class="row">
-                    <div class="col-7">
-                        <a class="btn btn-success" href="formupdate.php?titolo=<?=$libro['titolo']?>&autore=<?=$libro['autore']?>&genere=<?=$libro['genere']?>&anno_pubblicazione=<?=$libro['anno_pubblicazione']?>&prezzo=<?=$libro['prezzo']?>">
+                    <div class="col-auto">
+                        <a class="btn btn-success" href="formupdate.php?id=<?=$libro['id'];?>&titolo=<?=$libro['titolo']?>&autore=<?=$libro['autore']?>&genere=<?=$libro['genere']?>&anno_pubblicazione=<?=$libro['anno_pubblicazione']?>&prezzo=<?=$libro['prezzo']?>">
                             <i class="fa fa-pen"></i>
                             UPDATE
                         </a>
                     </div>
-                    <div class="col-5">
-                        <a onclick="return confirm('Vuoi eliminare lo user?')" class="btn btn-danger" href="eliminazione.php?titolo=<?=$libro['titolo']?>&autore=<?=$libro['autore']?>">
+                    <div class="col-auto">
+                        <a onclick="return confirm('Vuoi eliminare lo user?')" class="btn btn-danger" href="eliminazione.php?id=<?=$libro['id'];?>">
                             <i class="fa fa-trash"></i>
                             DELETE
                         </a>
                     </div>
-
                 </div>
             </td>
         </tr>

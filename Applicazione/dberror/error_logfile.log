@@ -1,0 +1,2 @@
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''anno_pubblicazione='2025-02-20',genere='Nigro'
+    WHERE id='11'' at line 1---2025-02-02 17:46:13

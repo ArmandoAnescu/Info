@@ -46,18 +46,12 @@ form{
     border-radius: 10px; /* Arrotonda i bordi */
     overflow: hidden; /* Assicura che il contenuto non sbordi */
     border-collapse:inherit; /* Evita conflitti con i bordi interni */
+    width: 75%; /* Riduci la larghezza se necessario */
+    border-width: 6px;
 }
 
-#tabella-libri {
-    width: 75%; /* Riduci la larghezza se necessario */
-    border-radius: 10px;
-    overflow: hidden;
-    border-width: 5px;
-}
-#tabella-libri thead{
-    border-top-left-radius: 10px; /* Arrotonda il bordo in alto a sinistra */
-    border-top-right-radius: 10px; /* Arrotonda il bordo in alto a destra */
-    overflow: hidden;
+#tabella-libri th{
+    width: auto;
 }
 
 .container {
