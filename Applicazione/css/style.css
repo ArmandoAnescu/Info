@@ -3,18 +3,19 @@
     align-items: center;
 }
 html, body {
-    height: 100%; /* Assicura che la pagina occupi tutta l'altezza */
-}
-body {
+    height: 100%;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    margin: 0; /* Rimuove margini predefiniti */
 }
-footer.container-fluid {
+
+.container {
+    flex: 1; /* Fa espandere il contenuto per occupare lo spazio disponibile */
+}
+footer{
     margin-top: auto; /* Spinge il footer in basso */
     background-color: darkgray;
     padding: 10px;
-    width: 100%;
     box-sizing: border-box; /* Considera padding e bordi nella larghezza */
     text-align: center;
 }

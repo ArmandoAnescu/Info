@@ -56,6 +56,23 @@ function RimuoviLibro($titolo,$autore){
         logError($e);
     }
 }
-function AggiornaLibro(){
-
+function AggiornaLibro($oldName,$oldAuthor,$titolo,$autore,$prezzo,$anno_pubblicazione,$genere){
+    global $db;
+    $query="UPDATE libreria SET titolo=:titolo,autore=:autore,prezzo=:prezzo,'anno_pubblicazione:anno_pubblicazione,genere=:genere
+    WHERE titolo=:vecchioTitolo AND autore=:vecchioAutore";
+    try {
+        $stm=$db->prepare($query);
+        $stm->bindValue(':titolo',$titolo);
+        $stm->bindValue(':autore',$autore);
+        $stm->bindValue(':prezzo',$prezzo);
+        $stm->bindValue(':anno_pubblicazione',$anno_pubblicazione);
+        $stm->bindValue(':genere',$genere);
+        $stm->bindValue(':veccchioTitolo',$oldName);
+        $stm->bindValue(':veccchioAutore',$oldAuthor);
+        if($stm->execute()){
+            $stm->closeCursor();
+        }
+    }catch (Exception $e){
+        logError($e);
+    }
 }

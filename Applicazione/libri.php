@@ -33,8 +33,7 @@ require 'header.php';
             <td>
                 <div class="row">
                     <div class="col-4">
-                        <a class="btn btn-success" href="#">
-
+                        <a class="btn btn-success" href="formupdate.php?titolo=<?=$libro['titolo']?>&autore=<?=$libro['autore']?>&genere=<?=$libro['genere']?>&anno_pubblicazione=<?=$libro['anno_pubblicazione']?>&prezzo=<?=$libro['prezzo']?>">
                             <i class="fa fa-pen"></i>
                             UPDATE
                         </a>
