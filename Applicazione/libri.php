@@ -2,7 +2,7 @@
 require 'header.php';
 ?>
 <div class="container mt-5">
-<h1 class="mt-5 pt-5">Catalogo</h1>
+<h1 class="mt-3 pt-3">Catalogo</h1>
 <br>
 <div class="table-responsive">
 <table class="table table-dark table-striped table-bordered rounded" id="tabella-libri">
@@ -32,14 +32,14 @@ require 'header.php';
             <td><?= $libro['prezzo']; ?></td>
             <td>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-7">
                         <a class="btn btn-success" href="formupdate.php?titolo=<?=$libro['titolo']?>&autore=<?=$libro['autore']?>&genere=<?=$libro['genere']?>&anno_pubblicazione=<?=$libro['anno_pubblicazione']?>&prezzo=<?=$libro['prezzo']?>">
                             <i class="fa fa-pen"></i>
                             UPDATE
                         </a>
                     </div>
-                    <div class="col-4">
-                        <a onclick="return confirm('Vuoi eliminare lo user?')" class="btn btn-danger" href="#">
+                    <div class="col-5">
+                        <a onclick="return confirm('Vuoi eliminare lo user?')" class="btn btn-danger" href="eliminazione.php?titolo=<?=$libro['titolo']?>&autore=<?=$libro['autore']?>">
                             <i class="fa fa-trash"></i>
                             DELETE
                         </a>

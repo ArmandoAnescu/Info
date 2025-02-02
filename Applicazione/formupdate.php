@@ -9,7 +9,7 @@ require 'header.php';
 ?>
 
 <body>
-    <h2 class="mt-5 pt-5">Inserimento libro:</h2>
+    <h2 class="mt-5 pt-5 form-title">Aggiornamento libro:</h2>
     <br>
     <form method="post" action="aggiornamento.php?oldName=<?=$oldName?>$oldAuthor=<?=$oldAuthor?>">
         <label for="nomelibro">Inserisci il nome dei libri</label>

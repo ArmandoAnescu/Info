@@ -3,9 +3,9 @@ require 'header.php';
 ?>
 
 <body>
-    <h2 class="mt-5 pt-5">Inserimento libro:</h2>
+    <h2 class="mt-5 pt-5 form-title">Inserimento libro:</h2>
     <br>
-<form method="post" action="inserimento.php">
+    <form method="post" action="inserimento.php">
     <label for="nomelibro">Inserisci il nome dei libri</label>
     <br>
     <input type="text" id="book" placeholder="name" name="nomelibro" required>
@@ -27,7 +27,7 @@ require 'header.php';
     <input type="date" name="annopubblicazione" id="year-of-publishment">
     <br> <br>
     <input type="submit" id="submit" value="Submit">
-</form>
+    </form>
 
 <?php
 require 'footer.php';
