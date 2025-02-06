@@ -43,8 +43,10 @@ function average5(?float $a, float $b, float $c) : int | float | string { // ? p
 echo average5(null, 20, 30); //media non calcolata
 echo '<br>';
 
-
-
+function logError(Exception $e):void{
+    error_log($e->getMessage()."---".date('Y-m-d H:i:s'."\n"),3,'dberror/error_logfile.log');
+    echo "DB error.Try again";
+}
 
 
 

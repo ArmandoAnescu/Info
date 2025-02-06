@@ -1,8 +1,9 @@
 <?php
-$db=new PDO('mysql:host=localhost;dbname=dbitis','root','',
-        [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_OBJ]
-);//ti configuri in modo da gestire gli errori con le opzioni e ogni tupla diventa un oggetto
+require 'dbconfig.php';
+require_once 'dbcon.php';
+require_once 'functions.php';
+$config= require 'dbconfig.php';
+$db=dbcon::getDb($config);//ti configuri in modo da gestire gli errori con le opzioni e ogni tupla diventa un oggetto
 var_dump($db);
 echo $db->getAttribute(PDO::ATTR_DRIVER_NAME);
 echo '<br>';
