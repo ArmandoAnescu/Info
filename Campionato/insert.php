@@ -7,7 +7,7 @@ switch ($_REQUEST['action']){
         $number=$_POST['number'];
         $nationality=$_POST['nationality'];
         $casa=$_POST['casa'];
-        AggiungiPilota($number,$name,$lname,$nationality,$casa);
+        AggiungiPilota($name,$lname,$number,$nationality,$casa);
         header("Location: confirm.php?msg=Pilota inserito con successo!");
         exit();
         break;

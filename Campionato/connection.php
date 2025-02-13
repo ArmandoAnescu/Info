@@ -76,8 +76,8 @@ function ClassificaRisultati(){
 function AggiungiPilota($nome,$cognome,$numero,$nazionalita,$casa): void
 {
     global $db;
-    $query = "INSERT INTO libreria (numero,nome,cognome,nazionalita,nome_casa) 
-VALUES(:numero,:nome,:cognomoe,:nazioanlita,:nome_casa)";
+    $query = "INSERT INTO piloti (numero,nome,cognome,nazionalita,nome_casa) 
+VALUES(:numero,:nome,:cognome,:nazionalita,:nome_casa)";
     try {
         $stm = $db->prepare($query);
         $stm->bindValue(':numero', $numero);
