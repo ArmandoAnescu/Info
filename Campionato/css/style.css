@@ -17,6 +17,7 @@ html, body {
 
 .container {
     flex: 1; /* Fa espandere il contenuto per occupare lo spazio disponibile */
+    align-items: center;
 }
 footer{
     margin-top: auto; /* Spinge il footer in basso */
@@ -26,5 +27,42 @@ footer{
     text-align: center;
 }
 #tabella-case{
-    width: 35%;
+    width: 40%;
+}
+form{
+    align-self: center;
+    align-items: center;
+    font-size: large;
+}
+.form-title{
+    align-self: center;
+}
+#submit{
+    background-color: #0a53be;
+    color: white;
+    padding: 10px;
+    width: 200px;
+    margin:5px;
+    border-radius: 5px;
+}
+#submit:hover{
+    background-color: green;
+}
+#casa{
+    width: 20%;
+}
+#redirectSelect{
+    align-self: center;
+    width: 30%;
+}
+#return{
+    background-color: #0a53be;
+    color: white;
+    padding: 10px;
+    width: 40px;
+    margin:5px;
+    border-radius: 5px;
+}
+th{
+    height: 10%;
 }

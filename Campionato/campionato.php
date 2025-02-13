@@ -15,7 +15,7 @@ include 'header.php';
                 <th>Cognome</th>
                 <th>Nazionalita</th>
                 <th>Casa</th>
-                <th>&nbsp;</th>
+                <th>Azioni</th>
             </tr>
             </thead>
             <tbody>
@@ -59,6 +59,7 @@ include 'header.php';
                 <?php
             }
             ?>
+            </tfoot>
             </tbody>
         </table>
     </div>
@@ -74,7 +75,7 @@ include 'header.php';
                 <th>Pilota</th>
                 <th>Luogo</th>
                 <th>Data</th>
-                <th>&nbsp;</th>
+                <th>Azioni</th>
             </tr>
             </thead>
             <tbody>
@@ -91,13 +92,13 @@ include 'header.php';
                     <td>
                         <div class="row">
                             <div class="col-auto">
-                                <a class="btn btn-success" href="">
+                                <a class="btn btn-success btn-sm" href="">
                                     <i class="fa fa-pen"></i>
                                     UPDATE
                                 </a>
                             </div>
                             <div class="col-auto">
-                                <a onclick="return confirm('Vuoi eliminare lo user?')" class="btn btn-danger" href="">
+                                <a onclick="return confirm('Vuoi eliminare lo user?')" class="btn btn-danger btn-sm" href="">
                                     <i class="fa fa-trash"></i>
                                     DELETE
                                 </a>
@@ -117,6 +118,7 @@ include 'header.php';
                 <?php
             }
             ?>
+            </tfoot>
             </tbody>
         </table>
     </div>
@@ -130,7 +132,7 @@ include 'header.php';
             <tr>
                 <th>Nome Livrea</th>
                 <th>Colore livrea</th><!--creo i le colonne con i dati da mostrare-->
-                <th>&nbsp;</th>
+                <th>Azioni</th>
             </tr>
             </thead>
             <tbody>
@@ -170,6 +172,7 @@ include 'header.php';
                 <?php
             }
             ?>
+            </tfoot>
             </tbody>
         </table>
     </div>

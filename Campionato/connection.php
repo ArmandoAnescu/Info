@@ -41,6 +41,22 @@ function ClassificaSquadre(): ?array
     return $squadre;
 }
 
+function RitornaSquadre(): ?array
+{
+    global $db;
+    $query = "SELECT c.nome_casa FROM case_automobilistiche c";
+    try {
+        $stm = $db->prepare($query);
+        $stm->execute();
+        $squadre = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $stm->closeCursor();
+    } catch (Exception $e) {
+        logError($e);
+        return null;
+    }
+    return $squadre;
+}
+
 function ClassificaRisultati(){
     global $db;
     $query = "SELECT r.id, r.posizione,r.piloti,g.luogo,g.data as data_gara
@@ -57,20 +73,19 @@ function ClassificaRisultati(){
     }
     return $risultati;
 }
-function AggiungiPilota(): void
+function AggiungiPilota($nome,$cognome,$numero,$nazionalita,$casa): void
 {
     global $db;
-    $query = "INSERT INTO libreria (titolo,autore,genere,prezzo,anno_pubblicazione) 
-VALUES(:titolo,:autore,:genere,:prezzo,:anno)";
+    $query = "INSERT INTO libreria (numero,nome,cognome,nazionalita,nome_casa) 
+VALUES(:numero,:nome,:cognomoe,:nazioanlita,:nome_casa)";
     try {
         $stm = $db->prepare($query);
-        $stm->bindValue(':titolo', $titolo);
-        $stm->bindValue(':autore', $autore);
-        $stm->bindValue(':genere', $genere);
-        $stm->bindValue(':prezzo', $prezzo);
-        $stm->bindValue(':anno', $anno_pubblicazione);
+        $stm->bindValue(':numero', $numero);
+        $stm->bindValue(':nome', $nome);
+        $stm->bindValue(':cognome', $cognome);
+        $stm->bindValue(':nazionalita', $nazionalita);
+        $stm->bindValue(':nome_casa', $casa);
         if ($stm->execute()) {
-            echo 'inserimento avvenuto con successo';
             $stm->closeCursor();
         } else {
             throw new PDOException('Errore utente non inserito correttamnete');

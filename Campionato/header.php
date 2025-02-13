@@ -13,6 +13,8 @@
     <title>Library.io</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
