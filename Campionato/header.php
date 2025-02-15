@@ -47,7 +47,7 @@
                     <a class="nav-link active" aria-current="page" href="campionato.php">Classifiche</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="inserimento.php">Inserisci Pilota</a>
+                    <a class="nav-link" href="inserimento.php">Inserisci</a>
                 </li>
             </ul>
             <form class="d-flex">

@@ -7,11 +7,11 @@ require 'connection.php'
     <form action="insert.php?action=casa" method="post">
         <label for="name">Inserisci il nome della livrea:</label>
         <br>
-        <input type="text" name="name" id="name">
+        <input type="text" name="name" id="name" required>
         <br>
         <label for="lname">Inserisci il colore della livrea:</label>
         <br>
-        <input type="text" name="color" id="color">
+        <input type="text" name="color" id="color" required>
         <br>
         <button id="submit" type="submit">Inserisci</button>
     </form>

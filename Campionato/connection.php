@@ -73,6 +73,22 @@ function ClassificaRisultati(){
     }
     return $risultati;
 }
+
+function ClassificaGare(){
+    global $db;
+    $query="SELECT * FROM gare";
+    try {
+        $stm = $db->prepare($query);
+        $stm->execute();
+        $gare = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $stm->closeCursor();
+    } catch (Exception $e) {
+        logError($e);
+        return null;
+    }
+    return $gare;
+}
+
 function AggiungiPilota($nome,$cognome,$numero,$nazionalita,$casa): void
 {
     global $db;
@@ -94,18 +110,15 @@ VALUES(:numero,:nome,:cognome,:nazionalita,:nome_casa)";
         logError($e);
     }
 }
-function AggiungiCasa(): void
+function AggiungiCasa($nome,$colore): void
 {
     global $db;
-    $query = "INSERT INTO libreria (titolo,autore,genere,prezzo,anno_pubblicazione) 
-VALUES(:titolo,:autore,:genere,:prezzo,:anno)";
+    $query = "INSERT INTO case_automobilistiche (nome_casa,livrea) 
+VALUES(:nome_casa,:livrea)";
     try {
         $stm = $db->prepare($query);
-        $stm->bindValue(':titolo', $titolo);
-        $stm->bindValue(':autore', $autore);
-        $stm->bindValue(':genere', $genere);
-        $stm->bindValue(':prezzo', $prezzo);
-        $stm->bindValue(':anno', $anno_pubblicazione);
+        $stm->bindValue(':nome_casa', $nome);
+        $stm->bindValue(':livrea', $colore);
         if ($stm->execute()) {
             echo 'inserimento avvenuto con successo';
             $stm->closeCursor();
@@ -117,13 +130,51 @@ VALUES(:titolo,:autore,:genere,:prezzo,:anno)";
     }
 }
 
-function RimuoviPilota($id)
-{
+function AggiungiRisultato($risultato,$pilota,$id_gara){
     global $db;
-    $query = "DELETE FROM libreria WHERE id=:id";
+    $query = "INSERT INTO risultati (posizione,piloti,id_gara)
+    VALUES(:risultato,:pilota,:id_gara)";
     try {
         $stm = $db->prepare($query);
-        $stm->bindValue(':id', $id);
+        $stm->bindValue(':risultato', $risultato);
+        $stm->bindValue(':pilota',$pilota);
+        $stm->bindValue(':id_gara', $id_gara);
+        if($stm->execute()){
+            $stm->closeCursor();
+        }else{
+            throw new PDOException('Errore risultato non inserito correttamnete');
+        }
+    } catch (Exception $e) {
+        logError($e);
+    }
+}
+
+function AggiungiGara($luogo,$data,$tempo_migliore) {
+    global $db;
+    $query = "INSERT INTO gare (luogo, data,tempo_migliore)
+    VALUES(:luogo, :data, :tempo_migliore)";
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':luogo', $luogo);
+        $stm->bindValue(':data', $data);
+        $stm->bindValue(':tempo_migliore',$tempo_migliore);
+        if($stm->execute()){
+            $stm->closeCursor();
+        }else{
+            throw new PDOException('Errore risultato non inserito correttamnete');
+        }
+    } catch (Exception $e) {
+        logError($e);
+    }   
+}
+
+function RimuoviPilota($numero)
+{
+    global $db;
+    $query = "DELETE FROM piloti WHERE numero=:numero";
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':numero', $numero);
         if ($stm->execute()) {
             $stm->closeCursor();
         }
@@ -131,7 +182,21 @@ function RimuoviPilota($id)
         logError($e);
     }
 }
-
+function RimuoviCasa($nome)
+{
+    global $db;
+    $query="DELETE FROM case_automobilistiche WHERE nome_casa=:nome_casa";
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':nome_casa', $nome);
+        if ($stm->execute()) {
+            $stm->closeCursor();
+        }
+    } catch (Exception $e) {
+        logError($e);
+    }
+    
+}
 function AggiornaPilota($numero, $nome, $cognome, $nazionalita, $casa)
 {
     global $db;
@@ -152,6 +217,24 @@ function AggiornaPilota($numero, $nome, $cognome, $nazionalita, $casa)
     } catch (Exception $e) {
         logError($e);
     }
+}
+function AggiornaCasa($nome,$newName,$color){
+    global $db;
+    $query = "UPDATE case_automobilistiche 
+    SET nome_casa=:nome_casa, livrea=:colore
+    WHERE nome_casa=:nome";
+    
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':nome', $nome);
+        $stm->bindValue(':nome_casa', $newName);
+        $stm->bindValue(':colore', $color);
+        if ($stm->execute()) {
+            $stm->closeCursor();
+        }
+    } catch (Exception $e) {
+        logError($e);
+    }  
 }
 function AggiornaRisultato($id, $titolo, $autore, $prezzo, $anno_pubblicazione, $genere){
 

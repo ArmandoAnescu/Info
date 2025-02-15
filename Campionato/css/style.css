@@ -29,6 +29,10 @@ footer{
 #tabella-case{
     width: 40%;
 }
+
+#tabella-gare{
+    width: 55%;
+}
 form{
     align-self: center;
     align-items: center;

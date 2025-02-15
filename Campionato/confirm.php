@@ -2,7 +2,7 @@
 $message=$_REQUEST['msg'];
 require 'header.php';
 ?>
-    <div class="container mt-5">
+    <div class="container mt-5 pt-5">
         <div class="alert alert-success" role="alert">
             <?= $message?>
         </div>

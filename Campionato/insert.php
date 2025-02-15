@@ -11,10 +11,27 @@ switch ($_REQUEST['action']){
         header("Location: confirm.php?msg=Pilota inserito con successo!");
         exit();
         break;
-    case 'case':
+    case 'casa':
+        $name=$_POST['name'];
+        $color=$_POST['color'];
+        AggiungiCasa($name,$color);
+        header("Location: confirm.php?msg=Casa inserita con successo!");
+        exit();
         break;
     case 'risultato':
+        $result=$_POST['posizione'];
+        $pilota=$_POST['numero'];
+        $id_race=$_POST['id_gara'];
+        AggiungiRisultato($result,$pilota,$id_race);
+        header("Location: confirm.php?msg=Risultato inserito con successo!");
+        exit();
         break;
     case 'gara':
+        $luogo=$_POST['luogo'];
+        $data=$_POST['data'];
+        $tempo_migliore['best_time'];
+        AggiungiGara($luogo,$data,$tempo_migliore);
+        header("Location: confirm.php?msg=Gara inserita con successo!");
+        exit();
         break;
 }
