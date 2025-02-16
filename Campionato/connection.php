@@ -171,6 +171,16 @@ function AggiungiGara($luogo,$data,$tempo_migliore) {
 function RimuoviPilota($numero)
 {
     global $db;
+    $query = "DELETE FROM risultati WHERE piloti = :piloti";
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':piloti', $numero);
+        if ($stm->execute()) {
+            $stm->closeCursor();
+        }
+    } catch (Exception $e) {
+        logError($e);
+    }
     $query = "DELETE FROM piloti WHERE numero=:numero";
     try {
         $stm = $db->prepare($query);
@@ -181,6 +191,7 @@ function RimuoviPilota($numero)
     } catch (Exception $e) {
         logError($e);
     }
+
 }
 function RimuoviCasa($nome)
 {
@@ -197,12 +208,42 @@ function RimuoviCasa($nome)
     }
     
 }
-function AggiornaPilota($numero, $nome, $cognome, $nazionalita, $casa)
+
+function RimuoviRisultato($id){
+    global $db;
+    $query = "DELETE FROM risultati WHERE id = :id";
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':id', $id);
+        if ($stm->execute()) {
+            $stm->closeCursor();
+        }
+    } catch (Exception $e) {
+        logError($e);
+    }
+}
+
+function RimuoviGara($id){
+    global $db;
+    $query = "DELETE FROM gare WHERE id = :id";
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':id', $id);
+        if ($stm->execute()) {
+            $stm->closeCursor();
+        }
+    } catch (Exception $e) {
+        logError($e);
+    }
+
+}
+
+function AggiornaPilota($oldNum,$numero, $nome, $cognome, $nazionalita, $casa)
 {
     global $db;
     $query = "UPDATE piloti 
-    SET nome=:nome, cognome=:cognome, nazionalita=:nazionalita, casa=:casa
-    WHERE numero=:numero";
+    SET nome=:nome, cognome=:cognome, nazionalita=:nazionalita, nome_casa=:casa,numero=:numero
+    WHERE numero=:oldNum";
     
     try {
         $stm = $db->prepare($query);
@@ -211,6 +252,7 @@ function AggiornaPilota($numero, $nome, $cognome, $nazionalita, $casa)
         $stm->bindValue(':nazionalita', $nazionalita);
         $stm->bindValue(':casa', $casa);
         $stm->bindValue(':numero', $numero);
+        $stm->bindValue(':oldNum', $oldNum);
         if ($stm->execute()) {
             $stm->closeCursor();
         }
@@ -218,6 +260,26 @@ function AggiornaPilota($numero, $nome, $cognome, $nazionalita, $casa)
         logError($e);
     }
 }
+
+function AggiornaGara($id, $luogo, $data, $tempo_migliore){
+    global $db;
+    $query = "UPDATE gare
+    SET luogo=:luogo, data=:data, tempo_migliore=:tempo_migliore
+    WHERE id=:id";
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':luogo', $luogo);
+        $stm->bindValue(':data',$data);
+        $stm->bindValue(':tempo_migliore',$tempo_migliore);
+        $stm->bindValue(':id',$id);
+        if ($stm->execute()) {
+            $stm->closeCursor();
+        }
+    } catch (Exception $e) {
+        logError($e);
+    }
+}
+
 function AggiornaCasa($nome,$newName,$color){
     global $db;
     $query = "UPDATE case_automobilistiche 
@@ -236,6 +298,83 @@ function AggiornaCasa($nome,$newName,$color){
         logError($e);
     }  
 }
-function AggiornaRisultato($id, $titolo, $autore, $prezzo, $anno_pubblicazione, $genere){
+function AggiornaRisultato($id, $posizione,$numero,$id_gara){
+    global $db;
+    $query = "UPDATE risultati
+    SET posizione=:posizione, piloti=:numero,id_gara=:id_gara
+    WHERE id=:id";
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':id', $id);
+        $stm->bindValue(':posizione', $posizione);
+        $stm->bindValue(':numero', $numero);
+        $stm->bindValue(':id_gara', $id_gara);
+        if ($stm->execute()) {
+            $stm->closeCursor();
+        }
+    } catch (Exception $e) {
+        logError($e);
+    }  
+}
 
+function OttieniPilota($num){
+    global $db;
+    $query = "SELECT * FROM piloti WHERE numero=:numero";
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':numero', $num);
+        $stm->execute(); 
+        $pilota = $stm->fetch(PDO::FETCH_ASSOC);
+        $stm->closeCursor();
+    } catch (Exception $e) {
+        logError($e);
+        return null;
+    }
+    return $pilota;
+}
+
+function OttieniCasa($nome){
+    global $db;
+    $query = "SELECT * FROM case_automobilistiche WHERE nome_casa=:nome";
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':nome', $nome);
+        $stm->execute(); 
+        $casa = $stm->fetch(PDO::FETCH_ASSOC);
+        $stm->closeCursor();
+    } catch (Exception $e) {
+        logError($e);
+        return null;
+    }
+    return $casa;
+}
+function OttieniRisultato($id){
+    global $db;
+    $query = "SELECT * FROM risultati WHERE id=:id";
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':id', $id);
+        $stm->execute(); 
+        $risultato = $stm->fetch(PDO::FETCH_ASSOC);
+        $stm->closeCursor();
+    } catch (Exception $e) {
+        logError($e);
+        return null;
+    }
+    return $risultato;
+}
+function OttieniGara($id){
+    global $db;
+    $query = "SELECT * FROM gare WHERE id=:id";
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':id', $id);
+        $stm->execute(); 
+        $gara = $stm->fetch(PDO::FETCH_ASSOC);
+        $stm->closeCursor();
+    } catch (Exception $e) {
+        logError($e);
+        return null;
+    }
+    return $gara;
 }

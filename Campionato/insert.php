@@ -29,7 +29,7 @@ switch ($_REQUEST['action']){
     case 'gara':
         $luogo=$_POST['luogo'];
         $data=$_POST['data'];
-        $tempo_migliore['best_time'];
+        $tempo_migliore=$_POST['best_time'];
         AggiungiGara($luogo,$data,$tempo_migliore);
         header("Location: confirm.php?msg=Gara inserita con successo!");
         exit();

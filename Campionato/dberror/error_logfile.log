@@ -1,3 +1,2 @@
-SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'numero' cannot be null---2025-02-15 15:38:48
-SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'numero' cannot be null---2025-02-15 15:39:57
-SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'numero' cannot be null---2025-02-15 15:40:48
+
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'casa' in 'field list'---2025-02-16 16:00:26

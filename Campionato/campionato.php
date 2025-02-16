@@ -34,7 +34,7 @@ include 'header.php';
                     <td>
                         <div class="row">
                             <div class="col-auto">
-                                <a class="btn btn-success" href="">
+                                <a class="btn btn-success" href="inserimentoPilota.php?action=update&num=<?=$pilota['numero']?>">
                                     <i class="fa fa-pen"></i>
                                     UPDATE
                                 </a>
@@ -94,7 +94,7 @@ include 'header.php';
                     <td>
                         <div class="row">
                             <div class="col-auto">
-                                <a class="btn btn-success btn-sm" href="">
+                                <a class="btn btn-success btn-sm" href="inserimentoRisultato.php?action=update&id=<?=$risultato['id']?>">
                                     <i class="fa fa-pen"></i>
                                     UPDATE
                                 </a>
@@ -148,7 +148,7 @@ include 'header.php';
                     <td>
                         <div class="row">
                             <div class="col-auto">
-                                <a class="btn btn-success" href="">
+                                <a class="btn btn-success" href="inserimentoCasa.php?action=update&nome_liv=<?=$casa['nome_casa']?>">
                                     <i class="fa fa-pen"></i>
                                     UPDATE
                                 </a>
@@ -206,13 +206,13 @@ include 'header.php';
                     <td>
                         <div class="row">
                             <div class="col-auto">
-                                <a class="btn btn-success" href="">
+                                <a class="btn btn-success" href="inserimentoGara.php?action=update&id=<?=$gara['id']?>">
                                     <i class="fa fa-pen"></i>
                                     UPDATE
                                 </a>
                             </div>
                             <div class="col-auto">
-                                <a onclick="return confirm('Vuoi eliminare lo user?')" class="btn btn-danger" href="delete.php?action=casa&nome_liv=<?=$gara['id']?>">
+                                <a onclick="return confirm('Vuoi eliminare lo user?')" class="btn btn-danger" href="delete.php?action=gara&id=<?=$gara['id']?>">
                                     <i class="fa fa-trash"></i>
                                     DELETE
                                 </a>
