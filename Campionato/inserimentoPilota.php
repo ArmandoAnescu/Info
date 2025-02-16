@@ -35,7 +35,7 @@ if(isset($_REQUEST['action'])&& $_REQUEST['action']==='update'){
             $case=RitornaSquadre();
             if($case){//controllo che gli user esistano altrimenti dico che non ho trovato nulla
                 foreach($case as $casa){?>
-            <option value="<?=$casa['nome_casa']?>" <?=($pilota['nome_casa']===$casa['nome_casa'])?'selected':''?>> <?=$casa['nome_casa']?></option>
+            <option value="<?=$casa['nome_casa']?>" <?=(isset($pilota)&&$pilota['nome_casa']===$casa['nome_casa'])?'selected':''?>> <?=$casa['nome_casa']?></option>
                 <?php
                 }
             }else{ ?>
