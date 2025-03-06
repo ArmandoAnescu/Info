@@ -12,7 +12,8 @@ function logError(Exception $e): void
 
 function login($password,$email){
     global $db;
-    $query="SELECT 
+    $query="SELECT *
+    dipendenti
     WHERE email=:email AND password=:password";
     try {
         $stm = $db->prepare($query);

@@ -1,4 +1,5 @@
 <?php
+require 'header.php';
 ?>
 <!doctype html>
 <html lang="it">
@@ -10,6 +11,7 @@
     <title>Login</title>
 </head>
 <body>
+<div class="container mt-5 pt-5 login">
     <form action="action_page.php?action=login" method="post">
         <label for="email">Email</label>
         <br>
@@ -20,7 +22,12 @@
         <input type="password" required name="password" id="passwors">
         <br>
         <br>
-        <input type="submit" name="invio" id="invio" placeholder="Invio">
+        <input type="submit" name="invio" id="submit" placeholder="Accedi">
     </form>
+</div>
+
 </body>
 </html>
+<?php
+require 'footer.php';
+?>

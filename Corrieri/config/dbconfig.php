@@ -1,6 +1,6 @@
 <?php
 return[
-    'dns'=>'mysql:host=localhost;dbname=campionato5f',
+    'dns'=>'mysql:host=localhost;dbname=fastroute',
     'username'=>'root',
     'password'=>'',
     'options'=>[

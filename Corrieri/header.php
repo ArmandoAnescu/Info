@@ -50,9 +50,7 @@
                     <a class="nav-link" href="">Inserisci</a>
                 </li>
             </ul>
-            <form class="d-flex">
                 <button class="btn btn-outline-success"  onclick="window.location.href='login.php'">Login</button>
-            </form>
         </div>
     </div>
 </nav>
