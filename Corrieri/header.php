@@ -50,7 +50,24 @@
                     <a class="nav-link" href="">Inserisci</a>
                 </li>
             </ul>
-                <button class="btn btn-outline-success"  onclick="window.location.href='login.php'">Login</button>
+            <ul class="navbar-nav ms-auto">
+                <?php if (isset($_SESSION['id'])): ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown">
+                            <?= $_SESSION['username'] ?>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="account.php">Profilo</a></li>
+                            <li><a class="dropdown-item text-danger" href="logout.php">Logout</a></li>
+                        </ul>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">Login</a>
+                    </li>
+                <?php endif; ?>
+
+            </ul>
         </div>
     </div>
 </nav>
