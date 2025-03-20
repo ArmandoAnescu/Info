@@ -9,7 +9,7 @@ switch ($_REQUEST['action']) {
         $password = $_POST['password'];
         $user = Login($email, $password);
         var_dump($user);
-        if($user) {
+        if ($user) {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start(); // Avvia la sessione solo se non è già attiva
             }
@@ -36,20 +36,44 @@ switch ($_REQUEST['action']) {
         }
         break;
     case 'client':
-    $nome=$_POST['name'];
-        $cognome=$_POST['surname'];
-        $indirizzo=$_POST['address'];
-        $tel=$_POST['telephone'];
-        $mail=$_POST['email'];
-        if(!$_SESSION['email']){
+        $nome = $_POST['name'];
+        $cognome = $_POST['surname'];
+        $indirizzo = $_POST['address'];
+        $tel = $_POST['telephone'];
+        $mail = $_POST['email'];
+        if (!$_SESSION['email']) {
             header('Location: confirm.php?msg=Errore inserimento utente');
             echo $_SESSION['email'];
         }
-        $result=InserisciCliente($cognome,$nome,$indirizzo,$tel,$mail);
+        $result = InserisciCliente($cognome, $nome, $indirizzo, $tel, $mail);
+
         if ($result) {
-            //header('Location: confirm.php?msg=Registrazione utente completata');
+            header('Location: confirm.php?msg=Registrazione utente completata');
         } else {
-            //header('Location: confirm.php?msg=Errore inserimento utente');
+            header('Location: confirm.php?msg=Errore inserimento utente');
         }
         break;
+    case 'plico':
+        $id_plico = $_POST['id_plico'] ?? null;
+        $cliente = $_POST['cliente'];
+        $sede_partenza = $_POST['sede_partenza'];
+        $sede_arrivo = $_POST['sede_arrivo'];
+        $responsabile = $_POST['responsabile'];
+        $consegna = $_POST['consegna'];
+        $spedizione = $_POST['spedizione'] ?: null;
+        $ritiro = $_POST['ritiro'] ?: null;
+        $stato = $_POST['stato'];
+
+        if ($id_plico) {
+            // AGGIORNA PLICO ESISTENTE
+            $result = AggiornaPlico($id_plico, $cliente, $sede_partenza, $sede_arrivo, $responsabile, $consegna, $spedizione, $ritiro, $stato);
+            $msg = $result ? "Plico aggiornato con successo" : "Errore nell'aggiornamento del plico";
+        } else {
+            // INSERISCI NUOVO PLICO
+            $result = InserisciPlico($cliente, $sede_partenza, $sede_arrivo, $responsabile, $consegna, $spedizione, $ritiro, $stato);
+            $msg = $result ? "Plico inserito con successo" : "Errore nell'inserimento del plico";
+        }
+
+        //header("Location: confirm.php?msg=$msg");
+        exit();
 }

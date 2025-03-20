@@ -11,7 +11,7 @@ create table fastroute.sedi(
 
 create table fastroute.dipendenti(
                                      email varchar(40) primary key,
-                                     password varchar(40),
+                                     password varchar(60),
                                      nome varchar(40)
 );
 
@@ -21,7 +21,7 @@ create table fastroute.clienti(
                                   indirizzo varchar(40),
                                   telefono varchar(30),
                                   email varchar(30) primary key,
-                                  punteggio int,
+                                  punteggio int
 );
 
 create table fastroute.plichi(
@@ -32,8 +32,8 @@ create table fastroute.plichi(
                                  spedizione datetime,
                                  responsabile varchar(40),
                                  stato varchar(20),
-                                 sede_partenza varchar(40),
-                                 sede_arrivo varchar(40),
+                                 sede_partenza int,
+                                 sede_arrivo int,
                                  foreign key(stato)references fastroute.stati(nome),
                                  foreign key(sede_partenza)references fastroute.sedi(id),
                                  foreign key(sede_arrivo)references fastroute.sedi(id),
@@ -41,9 +41,7 @@ create table fastroute.plichi(
 );
 
 select * from fastroute.dipendenti d;
-
-insert into fastroute.dipendenti (email,nome,password) value('a@a.com','Test','password');
-
+select * from fastroute.sedi s;
 INSERT INTO fastroute.sedi (nome, luogo) VALUES
                                              ('Sede Torino', 'Torino'),
                                              ('Sede Milano', 'Milano'),
@@ -55,3 +53,5 @@ INSERT INTO fastroute.sedi (nome, luogo) VALUES
                                              ('Sede Genova', 'Genova'),
                                              ('Sede Palermo', 'Palermo'),
                                              ('Sede Catania', 'Catania');
+insert into fastroute.stati (nome )values('In attesa'),('Spedito'),('Consegnato');
+
