@@ -21,21 +21,37 @@ create table fastroute.clienti(
                                   indirizzo varchar(40),
                                   telefono varchar(30),
                                   email varchar(30) primary key,
-                                  punteggio int
+                                  punteggio int,
 );
 
 create table fastroute.plichi(
-    id int primary key auto_increment,
-    consegna datetime ,
-    ritiro datetime ,
-    cliente varchar(30),
-    spedizione datetime,
-    responsabile varchar(40),
-    stato varchar(20),
-    sede_partenza int,
-    sede_arrivo int,
-    foreign key(stato)references fastroute.stati(nome),
-            foreign key(sede_partenza)references fastroute.sedi(id),
+                                 id int primary key auto_increment,
+                                 consegna datetime ,
+                                 ritiro datetime ,
+                                 cliente varchar(30) ,
+                                 spedizione datetime,
+                                 responsabile varchar(40),
+                                 stato varchar(20),
+                                 sede_partenza varchar(40),
+                                 sede_arrivo varchar(40),
+                                 foreign key(stato)references fastroute.stati(nome),
+                                 foreign key(sede_partenza)references fastroute.sedi(id),
                                  foreign key(sede_arrivo)references fastroute.sedi(id),
-                                 foreign key(cliente)references fastroute.clienti(email)
+                                 foreign key(cliente) references fastroute.clienti(email)
 );
+
+select * from fastroute.dipendenti d;
+
+insert into fastroute.dipendenti (email,nome,password) value('a@a.com','Test','password');
+
+INSERT INTO fastroute.sedi (nome, luogo) VALUES
+                                             ('Sede Torino', 'Torino'),
+                                             ('Sede Milano', 'Milano'),
+                                             ('Sede Venezia', 'Venezia'),
+                                             ('Sede Roma', 'Roma'),
+                                             ('Sede Firenze', 'Firenze'),
+                                             ('Sede Napoli', 'Napoli'),
+                                             ('Sede Bologna', 'Bologna'),
+                                             ('Sede Genova', 'Genova'),
+                                             ('Sede Palermo', 'Palermo'),
+                                             ('Sede Catania', 'Catania');

@@ -15,11 +15,11 @@ require 'header.php';
     <form action="action_page.php?action=login" method="post">
         <label for="email">Email</label>
         <br>
-        <input type="email" required id=email name="email">
+        <input type="email" required id="email" name="email">
         <br>
         <label for="password">Password</label>
         <br>
-        <input type="password" required name="password" id="passwors">
+        <input type="password" required name="password" id="password">
         <br>
         <br>
         <input type="submit" name="invio" id="submit" placeholder="Accedi">

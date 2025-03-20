@@ -12,10 +12,14 @@ include 'header.php';
 </head>
 <body>
 <div class="container mt-5 pt-5 login">
-    <form action="action_page.php?action=login" method="post">
+    <form action="action_page.php?action=client" method="post">
         <label for="name">Name</label>
         <br>
         <input type="text" required name="name" id="name">
+        <br>
+        <label for="surname">Surname</label>
+        <br>
+        <input type="text" required name="surname" id="surname">
         <br>
         <label for="address">Indirizzo</label>
         <br>
@@ -27,7 +31,7 @@ include 'header.php';
         <br>
         <label for="telephone">Num. di telefono</label>
         <br>
-        <input type="number" required name="telephone" id="telephone">
+        <input type="tel" required name="telephone" id="telephone">
         <br>
 
         <br>

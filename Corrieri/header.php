@@ -1,5 +1,7 @@
 <?php
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Avvia la sessione solo se non è già attiva
+}
 ?>
 <!doctype html>
 <html lang="it">
@@ -47,11 +49,11 @@
                     <a class="nav-link active" aria-current="page" href=""">Classifiche</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Inserisci</a>
+                    <a class="nav-link" href="inserimentoClienti.php">Inserisci Cliente</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
-                <?php if (isset($_SESSION['id'])): ?>
+                <?php if (isset($_SESSION['email'])): ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown">
                             <?= $_SESSION['username'] ?>
@@ -64,6 +66,9 @@
                 <?php else: ?>
                     <li class="nav-item">
                         <a class="nav-link" href="login.php">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.php">Register</a>
                     </li>
                 <?php endif; ?>
 
