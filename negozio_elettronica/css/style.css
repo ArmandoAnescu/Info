@@ -1,0 +1,24 @@
+.container.login{
+    align-items: center;!important;
+}
+form{
+    width: auto; !important;
+    height: auto;!important;
+    align-self: center;!important;
+    align-items: center;!important;
+    font-size: large;!important;
+}
+.form-title{
+    align-self: center;!important;
+}
+#submit{
+    background-color: #0a53be;
+    color: white;
+    padding: 10px;
+    width: 200px;
+    margin:5px;
+    border-radius: 5px;
+}
+#submit:hover{
+    background-color: green;!important;
+}
