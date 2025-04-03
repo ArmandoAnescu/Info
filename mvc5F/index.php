@@ -2,44 +2,39 @@
 $url=$_SERVER['REQUEST_URI'];
 $method=$_SERVER['REQUEST_METHOD']??'GET';
 
-echo $url;
-echo '<br>';
+//echo $url;
+//echo '<br>';
 
-echo $method;
+//echo $method;
 $url=trim(str_replace('mvc5F','',$url),"/");
-echo '<br>';
-echo $url;
+//echo '<br>';
+//echo $url;
 /*
  * RewriteEngine On
 RewriteRule ^ index.php [L] ^ indica qualsiasi URL e la L è che è l'ultima regoal
  * */
-echo '<br>';
 #router:version 1
-$routes=[
-    'GET'=>[//quando mi arriva come url questo chiamo un file php chiamato home controller e chiamerò il metodo di home controller
-        'home/index'=>["controller"=>"HomeController","action"=>"presentation1"],
-        'home/products'=>["controller"=>"ProductController","action"=>"show1"],
-        'home/services'=>["controller"=>"ServiceController","action"=>"presentation1"],
-        'home/contacts'=>["controller"=>"ServiceController","action"=>"presentation2"]
-    ],
-    'POST'=>[
+require 'router.php';
+$routerClass= new router();
+$routerClass->addController('GET','home/index','HomeController','presentation1');
+$routerClass->addController('GET','home/products','ProductController','show1');
+$routerClass->addController('GET','home/services','ServiceController','presentation1');
 
-    ]
-];
-if (!isset($routes[$method])){
-    http_response_code(405);
-    die('Metodo non supportato');
-}
-if (!array_key_exists($url,$routes[$method])){
+$routerClass->addController('POST','home/services','ServiceController','presentation11');
+$routerClass->addController('POST','home/services','ServiceController','show11');
+$routerClass->addController('POST','home/services','ServiceController','presentation12');
+$reValue=$routerClass->Match($url,$method);
+if (empty($reValue)){
     http_response_code(404);
     die('Pagina non trovata');
 }
-$controller=$routes[$method][$url]['controller'];
+$controller=$reValue['controller'];
 echo $controller;
 echo'<br>';
-$action=$routes[$method][$url]['action'];
+$action=$reValue['action'];
 echo $action;
 echo '<br>';
 require $controller.".php";
 $controllerObj=new $controller();
 $controllerObj->$action();
+//controller=insieme di classi con dei metodi che fanno qualcosa 
