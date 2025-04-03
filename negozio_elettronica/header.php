@@ -45,9 +45,12 @@ if (session_status() === PHP_SESSION_NONE) {
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <?php if (isset($_SESSION['email'])){?>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="visualizza.php">Guarda prodotti</a>
                 </li>
+                <?php }
+                ?>
                 <?php if (isset($_SESSION['email']) && $_SESSION['admin']){ ?>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="prodotto.php">Inserisci prodotti</a>

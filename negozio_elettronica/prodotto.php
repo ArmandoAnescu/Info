@@ -1,14 +1,14 @@
 <?php
 require 'header.php';
 require 'connection.php';
-if ($_REQUEST['action']==='update'){
+if ( isset($_REQUEST['action'])&& $_REQUEST['action']==='update'){
     $prodotto=OttieniProdotto($_REQUEST['id']);
-    }
+}
 ?>
 <div class="container mt-5 mb-5">
     <h1 class="mt-3 pt-3">Inserisci il prodotto:</h1>
     <div class="container">
-        <form action="action_page.php?<?=$_REQUEST['action']==='update'?'action=update&codice='.$_REQUEST['id']:'action=insert'?> method="POST">
+        <form action="action_page.php?<?= isset($_REQUEST['action']) && $_REQUEST['action'] === 'update' ? 'action=update&codice=' . $_REQUEST['id'] : 'action=insert' ?>" method="POST">
         <label for="codice">Codice:</label>
         <br>
         <input type="number" id="codice" name="codice" value="<?= isset($prodotto['codice']) ? $prodotto['codice'] : '' ?>" required><br><br>
