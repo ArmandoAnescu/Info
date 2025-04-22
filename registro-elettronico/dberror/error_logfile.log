@@ -1,0 +1,9 @@
+
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'JOIN studenti s
+    ON s.id=f.studente
+    LEFT JOIN persone p
+    ON  p.i...' at line 2---2025-04-22 11:19:10
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'LEFT JOIN studenti s
+    ON s.id=f.studente
+    LEFT JOIN persone p
+    ON...' at line 2---2025-04-22 11:20:55
