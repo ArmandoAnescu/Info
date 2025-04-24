@@ -20,10 +20,6 @@ function Login($email, $password) :?array {
         $stm->execute();
         $result = $stm->fetch(PDO::FETCH_ASSOC);
         $stm->closeCursor();
-
-        echo "<br> Hash recuperato dal DB: " . $result['password'] . "<br>"; // Debug
-        echo "<br> Password inserita: " . $password . "<br>"; // Debug
-
         if ($result && password_verify($password, trim( $result['password']))) {
             return [
                 'username' => $result['nome'],
@@ -89,21 +85,68 @@ function OttieniLingue():?array{
 }
 
 function OttieniEventi():?array{
-    $query="SELECT e.titolo,e.luogo,g.nome as guida,l.nome as lingua,e.id,TIMEDIFF(e.ora_fine, e.ora_inizio) AS durata,DATE(e.ora_inizio) AS data 
-FROM eventi e 
+    global $db;
+    $query="SELECT e.titolo,e.luogo,e.prezzo,g.nome as guida,l.nome as lingua,e.id,TIMEDIFF(e.ora_fine, e.ora_inizio) AS durata,DATE(e.ora_inizio) AS data 
+        FROM eventi e 
     LEFT JOIN guide g
     ON g.id=e.guida
     LEFT JOIN lingue l
-    ON l.id=e.lingua
-";
+    ON l.id=e.lingua";
     try {
         $stm = $db->prepare($query);
         $stm->execute();
         $eventi = $stm->fetchAll(PDO::FETCH_ASSOC);
         $stm->closeCursor();
+        return $eventi;
     } catch (Exception $e) {
         logError($e);
         return null;
     }
-    return $eventi;
+}
+
+function Prenotazione($evento):bool{
+    global $db;
+    $query="INSERT INTO prenotare (utente,evento,stato) VALUES (:user,:evento,:stato)";
+    if(session_status()===PHP_SESSION_NONE){
+        session_start();
+    }
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':evento',$evento);
+        $stm->bindValue(':user',$_SESSION['email']);
+        $stm->bindValue(':stato',1);
+        $stm->execute();
+        $stm->closeCursor();
+        return true;
+    } catch (Exception $e) {
+        logError($e);
+        return false;
+    }
+}
+
+function OttieniPrenotazioni(){
+    global $db;
+    $query="SELECT e.titolo,e.luogo,e.prezzo,g.nome as guida,l.nome as lingua,e.id,TIMEDIFF(e.ora_fine, e.ora_inizio) AS durata,DATE(e.ora_inizio) AS data 
+        FROM prenotare p
+    LEFT JOIN eventi e
+    ON e.id=p.evento
+    LEFT JOIN guide g
+    ON g.id=e.guida
+    LEFT JOIN lingue l
+    ON l.id=e.lingua
+    WHERE utente=:user";
+    if(session_status()===PHP_SESSION_NONE){
+        session_start();
+    }
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':user',$_SESSION['email']);
+        $stm->execute();
+        $eventi=$stm->fetchAll(PDO::FETCH_ASSOC);
+        $stm->closeCursor();
+        return $eventi;
+    } catch (Exception $e) {
+        logError($e);
+        return null;
+    }
 }

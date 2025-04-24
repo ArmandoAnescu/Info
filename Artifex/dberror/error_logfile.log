@@ -1,3 +1,14 @@
-SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '.amministratore FROM utenti u WHERE email = 'admin@admin.com'' at line 1---2025-03-27 09:09:24
-SQLSTATE[42S22]: Column not found: 1054 Unknown column 'pwd' in 'field list'---2025-04-10 10:46:27
-SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.pwd' in 'field list'---2025-04-10 10:47:54
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined---2025-04-24 10:19:28
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined---2025-04-24 10:19:29
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined---2025-04-24 10:19:29
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined---2025-04-24 10:19:46
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined---2025-04-24 10:19:47
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined---2025-04-24 10:19:47
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined---2025-04-24 10:19:47
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined---2025-04-24 10:19:48
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined---2025-04-24 10:19:48
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined---2025-04-24 10:19:50
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined---2025-04-24 10:19:50
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined---2025-04-24 10:19:50
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined---2025-04-24 10:19:51
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined---2025-04-24 10:19:51

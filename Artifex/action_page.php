@@ -39,27 +39,17 @@ switch ($_REQUEST['action']) {
            header('Location: register.php?msg=Username o Email già in uso');
         }
         break;
-    case 'insert':
-        $codice=$_POST['codice'];
-        $data_produzione=$_POST['data_produzione'];
-        $desc=$_POST['descrizione'];
-        $costo=$_POST['costo'];
-        $quantita=$_POST['quantita'];
-        InserisciProdotto($codice,$desc,$costo,$quantita,$data_produzione);
-        header('Location: index.php');
-        break;
-    case 'delete':
-        $codice=$_REQUEST['codice'];
-        RimuoviProdotto($codice);
-        header('Location: visualizza.php');
-        break;
-    case 'update':
-        $codice=$_POST['codice'];
-        $data_produzione=$_POST['data_produzione'];
-        $desc=$_POST['descrizione'];
-        $costo=$_POST['costo'];
-        $quantita=$_POST['quantita'];
-        AggiornaProdotto($codice,$desc,$costo,$quantita,$data_produzione);
-        header('Location: index.php');
+    case 'order':
+        $evento=$_REQUEST['id'];
+        $evento=intval($evento);
+        var_dump($evento);
+        $result=Prenotazione($evento);
+        if ($result) {
+            header('Location: visualizza.php?msg=Prenotazione completata con successo');
+        } else {
+            header('Location: visualizza.php?msg=Errore nella prenotazione');
+        }
+       break;
+    case 'payment':
         break;
 }

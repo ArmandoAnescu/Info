@@ -1,9 +1,8 @@
 <?php
-require 'componets/header.php';
-require 'connection.php';
-$eventi=OttieniEventi();
+include 'componets/header.php';
+include 'connection.php';
+$prenotazioni=OttieniPrenotazioni();
 ?>
-
 <div class="container mt-5 mb-5">
     <h1 class="mt-3 pt-3">Eventi</h1>
     <div class="table-responsive">
@@ -24,25 +23,25 @@ $eventi=OttieniEventi();
             </thead>
             <tbody>
             <?php
-            if($eventi){//controllo che gli user esistano altrimenti dico che non ho trovato nulla
-            foreach($eventi as $evento){?>
+            if($prenotazioni){//controllo che gli user esistano altrimenti dico che non ho trovato nulla
+            foreach($prenotazioni as $prenotazione){?>
                 <tr>
-                    <td><?=$evento['titolo'];?></td>
-                    <td><?= $evento['luogo'];?></td>
-                    <td><?= $evento['prezzo'];?></td>
-                    <td><?= $evento['durata'];?></td>
-                    <td><?= $evento['data']?></td>
-                    <td><?= $evento['guida']?></td>
-                    <td><?= $evento['lingua']?></td>
+                    <td><?=$prenotazione['titolo'];?></td>
+                    <td><?= $prenotazione['luogo'];?></td>
+                    <td><?= $prenotazione['prezzo'];?></td>
+                    <td><?= $prenotazione['durata'];?></td>
+                    <td><?= $prenotazione['data']?></td>
+                    <td><?= $prenotazione['guida']?></td>
+                    <td><?= $prenotazione['lingua']?></td>
                     <td>
-                    <div class="row">
-                        <div class="col-auto">
-                            <a class="btn btn-success btn-sm" href="action_page.php?action=order&id=<?=$evento['id']?>">
-                                <i class="fa fa-pen"></i>
-                                Prenota
-                            </a>
+                        <div class="row">
+                            <div class="col-auto">
+                                <a class="btn btn-danger btn-sm" href="action_page.php?action=order&id=<?=$prenotazione['id']?>">
+                                    <i class="fa fa-pen"></i>
+                                    Annulla
+                                </a>
+                            </div>
                         </div>
-                    </div>
                     </td>
                 </tr>
                 <?php
@@ -60,8 +59,9 @@ $eventi=OttieniEventi();
             </tfoot>
         </table>
     </div>
+    <button class="btn btn-success" onclick="window.location.href='pagamento.php'">Procedi al pagamento</button>
 </div>
 </main>
 <?php
-require 'componets/footer.php';
+include 'componets/footer.php';
 ?>

@@ -49,6 +49,12 @@ if (session_status() === PHP_SESSION_NONE) {
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="visualizza.php">Visualizza eventi</a>
                 </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="prenotazioni.php">Visualizza prenotazioni</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="carrello.php">Carrello</a>
+                    </li>
                 <?php }
                 ?>
             </ul>
@@ -65,13 +71,12 @@ if (session_status() === PHP_SESSION_NONE) {
                     </li>
                 <?php else: ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="../login.php">Login</a>
+                        <a class="nav-link" href="login.php">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../register.php">Register</a>
+                        <a class="nav-link" href="register.php">Register</a>
                     </li>
                 <?php endif; ?>
-
             </ul>
         </div>
     </div>
