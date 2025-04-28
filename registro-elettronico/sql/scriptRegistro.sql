@@ -54,6 +54,14 @@ INSERT INTO dbscuolaAnescu.credenziali(username, password) VALUES
 ('paolo.gialli', SHA2('personale789', 256)),
 ('maria.blu', SHA2('admin001', 256));
 
+INSERT INTO dbscuolaAnescu.credenziali(username, password) VALUES
+('pippo.beige', SHA2('password456', 256)),
+('matteo.panini', SHA2('paninibuoni90', 256)),
+('tungtung.sahur', SHA2('sahursahur34', 256)),
+('maria.rosa', SHA2('rosarosa123', 256)),
+('anna.azzurri', SHA2('azzurro69', 256)),
+('simone.limone', SHA2('limoni', 256));
+
 CREATE TABLE dbscuolaAnescu.pianistudio(
 id INT PRIMARY KEY AUTO_INCREMENT,
 articolazione INT,
@@ -86,6 +94,13 @@ INSERT INTO dbscuolaAnescu.persone(nome, cognome, data_nascita, luogo_nascita) V
 ('Paolo', 'Gialli', '1990-01-20', 'Firenze'),
 ('Maria', 'Blu', '1985-09-15', 'Genova');
 
+INSERT INTO dbscuolaAnescu.persone(nome, cognome, data_nascita, luogo_nascita) VALUES
+('Pippo','Beige','2007-05-23','Catanisetta'),
+('Matteo','Panini','2006-02-23','Napoli'),
+('Tungtung','Sahur','2004-06-23','Polesella'),
+('Maria','Rosa','2007-09-2','Frassinelle'),
+('Anna','Azzurri','2007-12-25','Bologna'),
+('Simone','Limone','2007-10-30','Rovigo');
 
 CREATE TABLE dbscuolaAnescu.docenti(
 id INT PRIMARY KEY AUTO_INCREMENT,
@@ -147,11 +162,7 @@ FOREIGN KEY (alunno) REFERENCES dbscuolaAnescu.studenti(id),
 FOREIGN KEY (classe) REFERENCES dbscuolaAnescu.classi(id)
 );
 
--- Marco Rossi nella 1A
-INSERT INTO dbscuolaAnescu.partecipare(alunno, classe) VALUES (1, 1);
 
--- Luca Verdi nella 2B
-INSERT INTO dbscuolaAnescu.partecipare(alunno, classe) VALUES (2, 2);
 
 
 CREATE TABLE dbscuolaAnescu.docenticlassi(
@@ -192,6 +203,8 @@ INSERT INTO dbscuolaAnescu.docenti(persona, credenziali) VALUES (6, 6);
 
 -- Giulia Bianchi insegna Matematica nella 1A
 INSERT INTO dbscuolaAnescu.docenticlassi(docente, classe, materia) VALUES (1, 1, 1);
+-- Giulia Bianchi insegna Matematica nella 2B
+INSERT INTO dbscuolaAnescu.docenticlassi(docente, classe, materia) VALUES (1, 2, 3);
 
 -- Maria Blu insegna Italiano nella 2B
 INSERT INTO dbscuolaAnescu.docenticlassi(docente, classe, materia) VALUES (2, 2, 2);
@@ -199,7 +212,31 @@ INSERT INTO dbscuolaAnescu.docenticlassi(docente, classe, materia) VALUES (2, 2,
 -- Anna Neri è genitore di Marco Rossi
 INSERT INTO dbscuolaAnescu.famiglie(studente, genitore) VALUES (1, 1);
 
+insert into dbscuolaanescu.studenti(persona,credenziali) VALUES(7,7);
 
+insert into dbscuolaanescu.studenti(persona,credenziali) VALUES(8,8);
+
+insert into dbscuolaanescu.studenti(persona,credenziali) VALUES(9,9);
+
+insert into dbscuolaanescu.studenti(persona,credenziali) VALUES(10,10);
+
+insert into dbscuolaanescu.studenti(persona,credenziali) VALUES(11,11);
+
+insert into dbscuolaanescu.studenti(persona,credenziali) VALUES(12,12);
+
+
+-- Marco Rossi nella 1A
+INSERT INTO dbscuolaAnescu.partecipare(alunno, classe) VALUES (1, 1);
+INSERT INTO dbscuolaAnescu.partecipare(alunno, classe) VALUES (5, 1);
+INSERT INTO dbscuolaAnescu.partecipare(alunno, classe) VALUES (8, 1);
+INSERT INTO dbscuolaAnescu.partecipare(alunno, classe) VALUES (7, 1);
+
+
+-- Luca Verdi nella 2B
+INSERT INTO dbscuolaAnescu.partecipare(alunno, classe) VALUES (2, 2);
+INSERT INTO dbscuolaAnescu.partecipare(alunno, classe) VALUES (6, 2);
+INSERT INTO dbscuolaAnescu.partecipare(alunno, classe) VALUES (9, 2);
+INSERT INTO dbscuolaAnescu.partecipare(alunno, classe) VALUES (10, 2);
 
 
 
