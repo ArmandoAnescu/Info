@@ -15,8 +15,8 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <title><?= str_replace('.php', '', basename($_SERVER['PHP_SELF'])) ?></title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sticky-footer-navbar/">
-    <link rel="icon" type="image/jpg" href="PixelHaven_Logo.png">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="css/style.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -56,7 +56,7 @@ session_start();
                         <?php if (isset($_SESSION['user']['id'])): ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown">
-                                    <?= str_replace('.',' ',$_SESSION['user']['username']) ?>
+                                    <?= str_replace('.', ' ', $_SESSION['user']['username']) ?>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="account.php">Profilo</a></li>
