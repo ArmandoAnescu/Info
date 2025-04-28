@@ -27,7 +27,7 @@ if (!$piano_studi_info) {
 }
 
 $classe_dettagli = OttieniClasse($classe_id);
-var_dump($classe_dettagli);
+//var_dump($classe_dettagli);
 ?>
 
 <main class="flex-shrink-0">

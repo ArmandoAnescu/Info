@@ -217,3 +217,62 @@ function OttieniPianoStudi($classe)
         return null;
     }
 }
+
+function OttieniClasseStudente($id_alunno)
+{
+    global $db;
+
+    $query = "SELECT
+                c.id, 
+                c.anno, 
+                c.sezione, 
+                c.anno_scolastico, 
+                a.nome as articolazione, 
+                i.nome as indirizzo
+              FROM 
+                partecipare p
+              INNER JOIN 
+                classi c ON p.classe = c.id
+              LEFT JOIN 
+                articolazioni a ON c.articolazione = a.id
+              LEFT JOIN 
+                indirizzi i ON i.id = a.indirizzo
+              WHERE 
+                p.alunno = :id_alunno
+             ORDER BY c.anno_scolastico DESC LIMIT 1";
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':id_alunno', $id_alunno, PDO::PARAM_INT);
+        $stm->execute();
+        $result = $stm->fetch(PDO::FETCH_ASSOC);
+        $stm->closeCursor();
+        return $result;
+    } catch (Exception $e) {
+        logError($e);
+        return null;
+    }
+}
+
+function OttieniStudentiClasse($id_classe)
+{
+    global $db;
+    $query = "SELECT pe.nome,pe.cognome
+    FROM partecipare p
+    LEFT JOIN studenti s
+    ON s.id=p.alunno
+    LEFT JOIN persone pe
+    ON s.persona=pe.id
+    WHERE p.classe=:id
+    ORDER BY pe.nome,pe.cognome ASC;";
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':id', $id_classe, PDO::PARAM_INT);
+        $stm->execute();
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $stm->closeCursor();
+        return $result;
+    } catch (Exception $e) {
+        logError($e);
+        return null;
+    }
+}

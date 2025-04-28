@@ -11,8 +11,8 @@ switch ($_REQUEST['action']) {
             header('Location: home.php'); // Reindirizza alla home page
             exit();
         } else {
-            //header('Location: index.php?msg=Password o Email errata');
+            header('Location: index.php?msg=Password o Email errata');
             exit();
         }
         break;
-    }
+}

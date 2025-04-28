@@ -66,6 +66,47 @@ include 'connection.php';
                 </div>
             </div>
 
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Menu Rapido</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="student-menu">
+                        <li class="student-menu-item">
+                            <a href="#" class="student-menu-link">
+                                <span class="student-menu-icon">
+                                    <i class="fas fa-calendar-day"></i>
+                                </span>
+                                Oggi
+                            </a>
+                        </li>
+                        <li class="student-menu-item">
+                            <a href="#" class="student-menu-link">
+                                <span class="student-menu-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </span>
+                                Agenda
+                            </a>
+                        </li>
+                        <li class="student-menu-item">
+                            <a href="#" class="student-menu-link">
+                                <span class="student-menu-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </span>
+                                Voti
+                            </a>
+                        </li>
+                        <li class="student-menu-item">
+                            <a href="classe.php" class="student-menu-link">
+                                <span class="student-menu-icon">
+                                    <i class="fas fa-users"></i>
+                                </span>
+                                Classe
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         <?php elseif ($_SESSION['user']['access'] === 'genitore'): ?>
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
