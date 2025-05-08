@@ -1,5 +1,5 @@
 <?php
-require 'componets/header.php';
+require 'components/header.php';
 require 'connection.php';
 $lingue=OttieniLingue();
 
@@ -56,5 +56,5 @@ $lingue=OttieniLingue();
     </body>
     </html>
 <?php
-require 'componets/footer.php';
+require 'components/footer.php';
 ?>

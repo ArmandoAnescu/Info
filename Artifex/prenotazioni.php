@@ -1,67 +1,87 @@
 <?php
-include 'componets/header.php';
+include 'components/header.php';
 include 'connection.php';
-$prenotazioni=OttieniPrenotazioni();
+$prenotazioni = OttieniStorico();
 ?>
-<div class="container mt-5 mb-5">
-    <h1 class="mt-3 pt-3">Eventi</h1>
-    <div class="table-responsive">
-        <table class="table table-dark table-striped table-hover table-bordered rounded" id="tabella-prodotti">
-            <thead>
-            <tr>
-            </tr>
-            <tr>
-                <th>Titolo</th>
-                <th>Luogo</th><!--creo i le colonne con i dati da mostrare-->
-                <th>Costo</th>
-                <th>Durata</th>
-                <th>Data</th>
-                <th>Guida</th>
-                <th>Lingua</th>
-                <th>Prenotazione</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            if($prenotazioni){//controllo che gli user esistano altrimenti dico che non ho trovato nulla
-            foreach($prenotazioni as $prenotazione){?>
-                <tr>
-                    <td><?=$prenotazione['titolo'];?></td>
-                    <td><?= $prenotazione['luogo'];?></td>
-                    <td><?= $prenotazione['prezzo'];?></td>
-                    <td><?= $prenotazione['durata'];?></td>
-                    <td><?= $prenotazione['data']?></td>
-                    <td><?= $prenotazione['guida']?></td>
-                    <td><?= $prenotazione['lingua']?></td>
-                    <td>
-                        <div class="row">
-                            <div class="col-auto">
-                                <a class="btn btn-danger btn-sm" href="action_page.php?action=order&id=<?=$prenotazione['id']?>">
-                                    <i class="fa fa-pen"></i>
-                                    Annulla
+
+    <!-- Header della pagina -->
+    <div class="container mt-5 mb-5">
+        <div class="page-header text-center">
+            <h1>Le Tue Prenotazioni</h1>
+            <p class="mt-3 mb-0">Gestisci i tuoi eventi prenotati</p>
+        </div>
+
+        <?php if($prenotazioni && count($prenotazioni) > 0) { ?>
+            <!-- Tabella prenotazioni -->
+            <div class="table-container">
+                <table class="table custom-table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Titolo</th>
+                        <th>Luogo</th>
+                        <th>Dettagli</th>
+                        <th>Data</th>
+                        <th>Guida</th>
+                        <th>Pagamento</th>
+                        <th>Azione</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($prenotazioni as $prenotazione) { ?>
+                        <tr>
+                            <td class="fw-bold"><?= $prenotazione['titolo']; ?></td>
+                            <td><?= $prenotazione['luogo']; ?></td>
+                            <td>
+                                <span class="badge-status badge-prezzo me-1"><?= $prenotazione['prezzo']; ?> €</span>
+                                <span class="badge-status badge-durata me-1"><?= $prenotazione['durata']; ?></span>
+                                <span class="badge-status badge-lingua"><?= $prenotazione['lingua']; ?></span>
+                            </td>
+                            <td><?= $prenotazione['data']; ?></td>
+                            <td><?= $prenotazione['guida']; ?></td>
+                            <td><?= $prenotazione['pagamento']; ?></td>
+                            <td>
+                                <a class="btn btn-action btn-rimborso tooltip" href="action_page.php?action=rimborso&id=<?= $prenotazione['id']; ?>">
+                                    <i class="fas fa-undo"></i> Rimborso
+                                    <span class="tooltip-text">Richiedi rimborso</span>
                                 </a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <a href="ricevuta.php" class="btn btn-pagamento">
+                    <i class="fas fa-credit-card me-2"></i> Scarica la ricevuta
+                </a>
+
                 <?php
-            }
-            ?>
-            <tfoot>
-            <?php
-            }else{ ?>
-                <tr>
-                    <td colspan="6">No records found</td><!-- Se non ci sono user o i par della ricerca non trovano niente lo dico -->
-                </tr>
-                <?php
-            }
-            ?>
-            </tfoot>
-        </table>
+                // Genera l'URL completo per il QR code
+                $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+                $host = $protocol . "://" . $_SERVER['HTTP_HOST'];
+                $currentUrl = $host . $_SERVER['REQUEST_URI'];
+                ?>
+                <div class="qr-container">
+                    <div class="qr-title">Scansiona per accesso rapido</div>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?php echo urlencode($currentUrl); ?>&format=svg"
+                         class="qr-code" alt="QR Code per tracking">
+                </div>
+            </div>
+
+        <?php } else { ?>
+            <!-- Visualizzazione "nessun dato" -->
+            <div class="no-data-container">
+                <i class="fas fa-calendar-times no-data-icon"></i>
+                <div class="no-data-message">Nessuna prenotazione disponibile. Prenota degli eventi o contatta l'assistenza se ci sono problemi.</div>
+                <a href="visualizza.php" class="btn btn-action btn-prenota">
+                    <i class="fas fa-search me-2"></i> Scopri eventi disponibili
+                </a>
+            </div>
+        <?php } ?>
     </div>
-    <button class="btn btn-success" onclick="window.location.href='pagamento.php'">Procedi al pagamento</button>
-</div>
-</main>
+    </main>
+
 <?php
-include 'componets/footer.php';
+include 'components/footer.php';
 ?>

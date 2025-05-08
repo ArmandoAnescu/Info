@@ -121,10 +121,34 @@ create table artifex.utenti(
                                foreign key(lingua) references artifex.lingue(id)
 );
 
+create table artifex.stati(
+                              id int primary key auto_increment,
+                              nome varchar(80)
+);
+
+insert into artifex.stati(nome)
+values
+    ("Pagato"),("Prenotato");
+
 create table artifex.prenotare(
                                   utente varchar(120),
                                   evento int,
+                                  data_pagamento date,
+                                  primary key(utente,evento,data_pagamento),
                                   foreign key(utente) references artifex.utenti(email),
-                                  foreign key(evento) references artifex.eventi(id),
-                                  primary key(utente,evento)
+                                  foreign key(evento) references artifex.eventi(id)
 );
+alter table artifex.prenotare
+    add data_pagamento date;
+
+update artifex.prenotare
+set data_pagamento=CURDATE();
+
+create table artifex.carrello(
+                                 utente varchar(120),
+                                 evento int,
+                                 primary key (utente,evento),
+                                 foreign key(utente) references artifex.utenti(email),
+                                 foreign key(evento) references artifex.eventi(id)
+);
+

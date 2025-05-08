@@ -1,67 +1,66 @@
 <?php
-require 'componets/header.php';
+require 'components/header.php';
 require 'connection.php';
-$eventi=OttieniEventi();
+$eventi = OttieniEventi();
 ?>
 
-<div class="container mt-5 mb-5">
-    <h1 class="mt-3 pt-3">Eventi</h1>
-    <div class="table-responsive">
-        <table class="table table-dark table-striped table-hover table-bordered rounded" id="tabella-prodotti">
-            <thead>
-            <tr>
-            </tr>
-            <tr>
-                <th>Titolo</th>
-                <th>Luogo</th><!--creo i le colonne con i dati da mostrare-->
-                <th>Costo</th>
-                <th>Durata</th>
-                <th>Data</th>
-                <th>Guida</th>
-                <th>Lingua</th>
-                <th>Prenotazione</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            if($eventi){//controllo che gli user esistano altrimenti dico che non ho trovato nulla
-            foreach($eventi as $evento){?>
-                <tr>
-                    <td><?=$evento['titolo'];?></td>
-                    <td><?= $evento['luogo'];?></td>
-                    <td><?= $evento['prezzo'];?></td>
-                    <td><?= $evento['durata'];?></td>
-                    <td><?= $evento['data']?></td>
-                    <td><?= $evento['guida']?></td>
-                    <td><?= $evento['lingua']?></td>
-                    <td>
-                    <div class="row">
-                        <div class="col-auto">
-                            <a class="btn btn-success btn-sm" href="action_page.php?action=order&id=<?=$evento['id']?>">
-                                <i class="fa fa-pen"></i>
-                                Prenota
-                            </a>
-                        </div>
-                    </div>
-                    </td>
-                </tr>
-                <?php
-            }
-            ?>
-            <tfoot>
-            <?php
-            }else{ ?>
-                <tr>
-                    <td colspan="6">No records found</td><!-- Se non ci sono user o i par della ricerca non trovano niente lo dico -->
-                </tr>
-                <?php
-            }
-            ?>
-            </tfoot>
-        </table>
+    <!-- Header della pagina -->
+    <div class="container mt-5 mb-5">
+        <div class="page-header text-center">
+            <h1>Eventi Disponibili</h1>
+            <p class="mt-3 mb-0">Scopri e prenota i nostri tour guidati</p>
+        </div>
+
+        <?php if($eventi && count($eventi) > 0) { ?>
+            <!-- Tabella eventi -->
+            <div class="table-container">
+                <table class="table custom-table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Titolo</th>
+                        <th>Luogo</th>
+                        <th>Dettagli</th>
+                        <th>Data</th>
+                        <th>Guida</th>
+                        <th>Azione</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($eventi as $evento) { ?>
+                        <tr>
+                            <td class="fw-bold"><?= $evento['titolo']; ?></td>
+                            <td><?= $evento['luogo']; ?></td>
+                            <td>
+                                <span class="badge-status badge-prezzo me-1"><?= $evento['prezzo']; ?> €</span>
+                                <span class="badge-status badge-durata me-1"><?= $evento['durata']; ?></span>
+                                <span class="badge-status badge-lingua"><?= $evento['lingua']; ?></span>
+                            </td>
+                            <td><?= $evento['data']; ?></td>
+                            <td><?= $evento['guida']; ?></td>
+                            <td>
+                                <a class="btn btn-action btn-prenota" href="action_page.php?action=order&id=<?= $evento['id']; ?>">
+                                    <i class="fas fa-calendar-check"></i> Prenota
+                                </a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+
+        <?php } else { ?>
+            <!-- Visualizzazione "nessun dato" -->
+            <div class="no-data-container">
+                <i class="fas fa-calendar-times no-data-icon"></i>
+                <div class="no-data-message">Nessun evento disponibile al momento. Controlla più tardi o contatta l'assistenza.</div>
+                <a href="contatti.php" class="btn btn-action btn-prenota">
+                    <i class="fas fa-envelope me-2"></i> Contatta l'assistenza
+                </a>
+            </div>
+        <?php } ?>
     </div>
-</div>
-</main>
+    </main>
+
 <?php
-require 'componets/footer.php';
+require 'components/footer.php';
 ?>

@@ -1,5 +1,5 @@
 <?php
-require 'componets/header.php';
+require 'components/header.php';
 ?>
 <!doctype html>
 <html lang="it">
@@ -29,5 +29,5 @@ require 'componets/header.php';
 </body>
 </html>
 <?php
-require 'componets/footer.php';
+require 'components/footer.php';
 ?>

@@ -4,6 +4,9 @@ require_once 'config/dbcon.php';
 $config= require 'config/dbconfig.php';
 $db=dbcon::getDb($config);
 
+if(session_status()===PHP_SESSION_NONE){
+    session_start();
+}
 function logError(Exception $e): void
 {
     error_log($e->getMessage() . "---" . date('Y-m-d H:i:s' . "\n"), 3, 'dberror/error_logfile.log');
@@ -106,15 +109,51 @@ function OttieniEventi():?array{
 
 function Prenotazione($evento):bool{
     global $db;
-    $query="INSERT INTO prenotare (utente,evento,stato) VALUES (:user,:evento,:stato)";
+    $query="INSERT INTO carrello (utente,evento) VALUES (:user,:evento)";
     if(session_status()===PHP_SESSION_NONE){
         session_start();
     }
     try {
         $stm = $db->prepare($query);
         $stm->bindValue(':evento',$evento);
-        $stm->bindValue(':user',$_SESSION['email']);
-        $stm->bindValue(':stato',1);
+        $stm->bindValue(':user',$_SESSION['user']['email']);
+        $stm->execute();
+        $stm->closeCursor();
+        return true;
+    } catch (Exception $e) {
+        logError($e);
+        return false;
+    }
+}
+
+function RimuoviPrenotazione($evento):bool{
+    global $db;
+    $query="DELETE FROM carrello WHERE evento=:evento AND utente=:user";
+    if(session_status()===PHP_SESSION_NONE){
+        session_start();
+    }
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':evento',$evento);
+        $stm->bindValue(':user',$_SESSION['user']['email']);
+        $stm->execute();
+        $stm->closeCursor();
+        return true;
+    } catch (Exception $e) {
+        logError($e);
+        return false;
+    }
+}
+
+function RimuoviTuttePrenotazioni():bool{
+    global $db;
+    $query="DELETE FROM carrello WHERE utente=:user";
+    if(session_status()===PHP_SESSION_NONE){
+        session_start();
+    }
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':user',$_SESSION['user']['email']);
         $stm->execute();
         $stm->closeCursor();
         return true;
@@ -126,7 +165,34 @@ function Prenotazione($evento):bool{
 
 function OttieniPrenotazioni(){
     global $db;
-    $query="SELECT e.titolo,e.luogo,e.prezzo,g.nome as guida,l.nome as lingua,e.id,TIMEDIFF(e.ora_fine, e.ora_inizio) AS durata,DATE(e.ora_inizio) AS data 
+    $query="SELECT e.id,e.titolo,e.luogo,e.prezzo,g.nome as guida,l.nome as lingua,e.id,TIMEDIFF(e.ora_fine, e.ora_inizio) AS durata,DATE(e.ora_inizio) AS data 
+        FROM carrello c
+    LEFT JOIN eventi e
+    ON e.id=c.evento
+    LEFT JOIN guide g
+    ON g.id=e.guida
+    LEFT JOIN lingue l
+    ON l.id=e.lingua
+    WHERE utente=:user";
+    if(session_status()===PHP_SESSION_NONE){
+        session_start();
+    }
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':user',$_SESSION['user']['email']);
+        $stm->execute();
+        $eventi=$stm->fetchAll(PDO::FETCH_ASSOC);
+        $stm->closeCursor();
+        return $eventi;
+    } catch (Exception $e) {
+        logError($e);
+        return null;
+    }
+}
+
+function OttieniStorico(){
+    global $db;
+    $query="SELECT e.titolo,e.luogo,e.prezzo,g.nome as guida,l.nome as lingua,e.id,TIMEDIFF(e.ora_fine, e.ora_inizio) AS durata,DATE(e.ora_inizio) AS data,p.data_pagamento as pagamento 
         FROM prenotare p
     LEFT JOIN eventi e
     ON e.id=p.evento
@@ -140,7 +206,7 @@ function OttieniPrenotazioni(){
     }
     try {
         $stm = $db->prepare($query);
-        $stm->bindValue(':user',$_SESSION['email']);
+        $stm->bindValue(':user',$_SESSION['user']['email']);
         $stm->execute();
         $eventi=$stm->fetchAll(PDO::FETCH_ASSOC);
         $stm->closeCursor();
@@ -149,4 +215,48 @@ function OttieniPrenotazioni(){
         logError($e);
         return null;
     }
+}
+
+function Pagamento():bool{
+    global $db;
+    $eventi=OttieniPrenotazioni();
+    if (!$eventi){
+        return false;
+    }
+    $query="INSERT INTO prenotare (utente,evento,data_pagamento)
+    VALUES (:utente,:evento,CURRENT_DATE())";
+
+
+    try {
+        $stm = $db->prepare($query);
+        foreach ($eventi as $evento){
+            $stm->bindValue(':utente',$_SESSION['user']['email']);
+            $stm->bindValue(':evento',$evento['id']);
+            $stm->execute();
+        }
+        $stm->closeCursor();
+        RimuoviTuttePrenotazioni();
+        return true;
+    } catch (Exception $e) {
+        logError($e);
+        return false;
+    }
+}
+
+function RimuoviPrenotazioneStorico($evento){
+    global $db;
+    $query="DELETE FROM prenotare WHERE evento=:evento AND utente=:user";
+
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':evento',$evento);
+        $stm->bindValue(':user',$_SESSION['user']['email']);
+        $stm->execute();
+        $stm->closeCursor();
+        return true;
+    } catch (Exception $e) {
+        logError($e);
+        return false;
+    }
+
 }

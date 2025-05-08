@@ -13,9 +13,7 @@ switch ($_REQUEST['action']) {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start(); // Avvia la sessione solo se non è già attiva
             }
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['email'] = $user['email'];
-            $_SESSION['admin']=$user['admin'];
+            $_SESSION['user'] = $user;
             header('Location: index.php'); // Reindirizza alla home page
             exit();
         } else {
@@ -50,6 +48,31 @@ switch ($_REQUEST['action']) {
             header('Location: visualizza.php?msg=Errore nella prenotazione');
         }
        break;
-    case 'payment':
+    case 'remove':
+        $evento=$_REQUEST['id'];
+        $evento=intval($evento);
+        $result=RimuoviPrenotazione($evento);
+        if ($result) {
+            header('Location: visualizza.php?msg=Prenotazione rimossa con successo');
+        } else {
+            header('Location: visualizza.php?msg=Errore nella rimozione della prenotazione');
+        }
         break;
+    case 'payment':
+        $result=Pagamento();
+        if ($result) {
+            header('Location: prenotazioni.php?msg=Pagamento riuscito con successo');
+        } else {
+            header('Location: carrello.php?msg=Errore nel pagamento');
+        }
+        break;
+    case 'rimborso':
+        $evento=$_REQUEST['id'];
+        $evento=intval($evento);
+        $result=RimuoviPrenotazioneStorico($evento);
+        if ($result) {
+            header('Location: prenotazioni.php?msg=Rimborso riuscito con successo');
+        } else {
+            header('Location: carrello.php?msg=Errore nel rimborso');
+        }        break;
 }

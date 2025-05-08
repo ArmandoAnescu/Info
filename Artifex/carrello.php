@@ -1,67 +1,95 @@
 <?php
-include 'componets/header.php';
+// carrello.php
+include 'components/header.php';
 include 'connection.php';
-$prenotazioni=OttieniPrenotazioni();
+$prenotazioni = OttieniPrenotazioni();
+$somma = 0;
 ?>
-<div class="container mt-5 mb-5">
-    <h1 class="mt-3 pt-3">Eventi</h1>
-    <div class="table-responsive">
-        <table class="table table-dark table-striped table-hover table-bordered rounded" id="tabella-prodotti">
-            <thead>
-            <tr>
-            </tr>
-            <tr>
-                <th>Titolo</th>
-                <th>Luogo</th><!--creo i le colonne con i dati da mostrare-->
-                <th>Costo</th>
-                <th>Durata</th>
-                <th>Data</th>
-                <th>Guida</th>
-                <th>Lingua</th>
-                <th>Prenotazione</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            if($prenotazioni){//controllo che gli user esistano altrimenti dico che non ho trovato nulla
-            foreach($prenotazioni as $prenotazione){?>
-                <tr>
-                    <td><?=$prenotazione['titolo'];?></td>
-                    <td><?= $prenotazione['luogo'];?></td>
-                    <td><?= $prenotazione['prezzo'];?></td>
-                    <td><?= $prenotazione['durata'];?></td>
-                    <td><?= $prenotazione['data']?></td>
-                    <td><?= $prenotazione['guida']?></td>
-                    <td><?= $prenotazione['lingua']?></td>
-                    <td>
-                        <div class="row">
-                            <div class="col-auto">
-                                <a class="btn btn-danger btn-sm" href="action_page.php?action=order&id=<?=$prenotazione['id']?>">
-                                    <i class="fa fa-pen"></i>
-                                    Annulla
-                                </a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <?php
-            }
-            ?>
-            <tfoot>
-            <?php
-            }else{ ?>
-                <tr>
-                    <td colspan="6">No records found</td><!-- Se non ci sono user o i par della ricerca non trovano niente lo dico -->
-                </tr>
-                <?php
-            }
-            ?>
-            </tfoot>
-        </table>
+
+<!-- Header della pagina -->
+<div class="page-header text-center">
+    <div class="container">
+        <h1>Il tuo carrello</h1>
+        <p>Rivedi i tuoi eventi selezionati e procedi al checkout</p>
     </div>
-    <button class="btn btn-success" onclick="window.location.href='pagamento.php'">Procedi al pagamento</button>
+</div>
+
+<div class="container mt-5 mb-5">
+    <?php if($prenotazioni): ?>
+        <div class="table-container">
+            <table class="custom-table">
+                <thead>
+                <tr>
+                    <th>Evento</th>
+                    <th>Durata</th>
+                    <th>Lingua</th>
+                    <th>Prezzo</th>
+                    <th>Azioni</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                foreach($prenotazioni as $prenotazione) {
+                    $somma = $somma + $prenotazione['prezzo'];
+                    ?>
+                    <tr>
+                        <td class="fw-bold"><?=$prenotazione['titolo']?></td>
+                        <td>
+                            <span class="badge-status badge-durata">
+                                <?=$prenotazione['durata']?>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge-status badge-lingua">
+                                <?=$prenotazione['lingua']?>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge-status badge-prezzo">
+                                €<?=$prenotazione['prezzo']?>
+                            </span>
+                        </td>
+                        <td>
+                            <a class="btn btn-action btn-rimborso" href="action_page.php?action=remove&id=<?=$prenotazione['id']?>">
+                                <i class="fa fa-times me-1"></i> Rimuovi
+                            </a>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end fw-bold">Totale:</td>
+                    <td class="fw-bold fs-large">€<?=$somma?></td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <a href="eventi.php" class="btn btn-action">
+                <i class="fas fa-arrow-left me-1"></i> Continua lo shopping
+            </a>
+            <button class="btn btn-pagamento" onclick="window.location.href='pagamento.php'">
+                <i class="fas fa-credit-card me-2"></i> Procedi al pagamento
+            </button>
+        </div>
+    <?php else: ?>
+        <div class="no-data-container">
+            <div class="no-data-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <div class="no-data-message">
+                Il tuo carrello è vuoto. Scopri i nostri eventi e aggiungi quelli che ti interessano!
+            </div>
+            <a href="eventi.php" class="btn btn-action btn-prenota">
+                <i class="fas fa-calendar-alt me-1"></i> Scopri eventi
+            </a>
+        </div>
+    <?php endif; ?>
 </div>
 </main>
 <?php
-include 'componets/footer.php';
+include 'components/footer.php';
 ?>
