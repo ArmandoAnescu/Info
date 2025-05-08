@@ -16,7 +16,7 @@ $pdf->Ln(80);
 $pdf->setTextColor(252,3,61);
 $pdf->setFont('Helvetica','',14);
 $pdf->Cell(0,10,"Name: {$_SESSION['user']['username']} ",0,1,'L');//riga del pdf
-foreach ($eventi as $evento){
+foreach ($prenotazioni as $evento){
     $pdf->Cell(0,10,"Nome evento".$evento['titolo']." Luogo ".$evento['luogo']."Data e ora evento: ".$evento['data']);//riga del pdf
 
 }
