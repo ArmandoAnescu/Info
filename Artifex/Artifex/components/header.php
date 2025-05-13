@@ -42,10 +42,10 @@
                 if(PHP_SESSION_NONE===session_status()){
                     session_start();
                 }
-                if (isset($_SESSION['email'])): ?>
+                if (isset($_SESSION['user'])): ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" style="color: white;">
-                    <?= $_SESSION['username'] ?>
+                    <?= $_SESSION['user']['username'] ?>
                     </a>
                     <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="account.php">Profilo</a></li>

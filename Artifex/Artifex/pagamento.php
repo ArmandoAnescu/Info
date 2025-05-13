@@ -1,4 +1,4 @@
-// pagamento.php
+<?php
 include 'components/header.php';
 include 'connection.php';
 $prenotazioni = OttieniPrenotazioni();
@@ -79,13 +79,23 @@ $somma = 0;
                     <span>€<?=$somma?></span>
                 </div>
 
-                <button class="btn btn-pagamento w-100">
+                <button class="btn btn-pagamento w-100" onclick="window.location=href='action_page.php?action=payment'">
                     <i class="fas fa-lock me-2"></i> Completa pagamento
                 </button>
 
                 <div class="text-center mt-4">
-                    <div class="qr-title">Scansiona per pagare con app</div>
-                    <img src="path/to/qr-code.png" alt="QR Code pagamento" class="qr-code">
+                    <?php
+                    // Genera l'URL completo per il QR code
+                    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+                    $host = $protocol . "://" . $_SERVER['HTTP_HOST'];
+                    $currentUrl = $host . $_SERVER['REQUEST_URI'];
+                    ?>
+                    <div class="qr-container">
+                        <div class="qr-title">Scansiona per pagare con app</div>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?php echo urlencode($currentUrl); ?>&format=svg"
+                             class="qr-code" alt="QR Code per tracking">
+                    </div>
+                </div>
                 </div>
             </div>
         </div>

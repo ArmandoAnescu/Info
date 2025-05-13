@@ -6,15 +6,17 @@ $prenotazioni = OttieniPrenotazioni();
 $somma = 0;
 ?>
 
-<!-- Header della pagina -->
-<div class="page-header text-center">
-    <div class="container">
-        <h1>Il tuo carrello</h1>
-        <p>Rivedi i tuoi eventi selezionati e procedi al checkout</p>
-    </div>
-</div>
+
 
 <div class="container mt-5 mb-5">
+    <!-- Header della pagina -->
+    <div class="page-header text-center">
+        <div class="container">
+            <h1>Il tuo carrello</h1>
+            <p>Rivedi i tuoi eventi selezionati e procedi al checkout</p>
+        </div>
+    </div>
+    <br>
     <?php if($prenotazioni): ?>
         <div class="table-container">
             <table class="custom-table">
@@ -71,7 +73,7 @@ $somma = 0;
             <a href="eventi.php" class="btn btn-action">
                 <i class="fas fa-arrow-left me-1"></i> Continua lo shopping
             </a>
-            <button class="btn btn-pagamento" onclick="window.location.href='action_page.php?action=payment'">
+            <button class="btn btn-pagamento" onclick="window.location.href='pagamento.php'">
                 <i class="fas fa-credit-card me-2"></i> Procedi al pagamento
             </button>
         </div>

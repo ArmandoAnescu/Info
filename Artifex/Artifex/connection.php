@@ -4,6 +4,9 @@ require_once 'config/dbcon.php';
 $config= require 'config/dbconfig.php';
 $db=dbcon::getDb($config);
 
+if(session_status()===PHP_SESSION_NONE){
+    session_start();
+}
 function logError(Exception $e): void
 {
     error_log($e->getMessage() . "---" . date('Y-m-d H:i:s' . "\n"), 3, 'dberror/error_logfile.log');
@@ -113,7 +116,7 @@ function Prenotazione($evento):bool{
     try {
         $stm = $db->prepare($query);
         $stm->bindValue(':evento',$evento);
-        $stm->bindValue(':user',$_SESSION['email']);
+        $stm->bindValue(':user',$_SESSION['user']['email']);
         $stm->execute();
         $stm->closeCursor();
         return true;
@@ -132,7 +135,7 @@ function RimuoviPrenotazione($evento):bool{
     try {
         $stm = $db->prepare($query);
         $stm->bindValue(':evento',$evento);
-        $stm->bindValue(':user',$_SESSION['email']);
+        $stm->bindValue(':user',$_SESSION['user']['email']);
         $stm->execute();
         $stm->closeCursor();
         return true;
@@ -150,7 +153,7 @@ function RimuoviTuttePrenotazioni():bool{
     }
     try {
         $stm = $db->prepare($query);
-        $stm->bindValue(':user',$_SESSION['email']);
+        $stm->bindValue(':user',$_SESSION['user']['email']);
         $stm->execute();
         $stm->closeCursor();
         return true;
@@ -176,7 +179,7 @@ function OttieniPrenotazioni(){
     }
     try {
         $stm = $db->prepare($query);
-        $stm->bindValue(':user',$_SESSION['email']);
+        $stm->bindValue(':user',$_SESSION['user']['email']);
         $stm->execute();
         $eventi=$stm->fetchAll(PDO::FETCH_ASSOC);
         $stm->closeCursor();
@@ -203,7 +206,7 @@ function OttieniStorico(){
     }
     try {
         $stm = $db->prepare($query);
-        $stm->bindValue(':user',$_SESSION['email']);
+        $stm->bindValue(':user',$_SESSION['user']['email']);
         $stm->execute();
         $eventi=$stm->fetchAll(PDO::FETCH_ASSOC);
         $stm->closeCursor();
@@ -223,13 +226,11 @@ function Pagamento():bool{
     $query="INSERT INTO prenotare (utente,evento,data_pagamento)
     VALUES (:utente,:evento,CURRENT_DATE())";
 
-    if(session_status()===PHP_SESSION_NONE){
-        session_start();
-    }
+
     try {
         $stm = $db->prepare($query);
         foreach ($eventi as $evento){
-            $stm->bindValue(':utente',$_SESSION['email']);
+            $stm->bindValue(':utente',$_SESSION['user']['email']);
             $stm->bindValue(':evento',$evento['id']);
             $stm->execute();
         }
@@ -240,4 +241,22 @@ function Pagamento():bool{
         logError($e);
         return false;
     }
+}
+
+function RimuoviPrenotazioneStorico($evento){
+    global $db;
+    $query="DELETE FROM prenotare WHERE evento=:evento AND utente=:user";
+
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':evento',$evento);
+        $stm->bindValue(':user',$_SESSION['user']['email']);
+        $stm->execute();
+        $stm->closeCursor();
+        return true;
+    } catch (Exception $e) {
+        logError($e);
+        return false;
+    }
+
 }

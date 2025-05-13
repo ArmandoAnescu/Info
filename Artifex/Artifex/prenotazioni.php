@@ -52,8 +52,8 @@ $prenotazioni = OttieniStorico();
             </div>
 
             <div class="d-flex justify-content-between align-items-center mt-4">
-                <a href="pagamento.php" class="btn btn-pagamento">
-                    <i class="fas fa-credit-card me-2"></i> Procedi al pagamento
+                <a href="ricevuta.php" class="btn btn-pagamento">
+                    <i class="fas fa-credit-card me-2"></i> Scarica la ricevuta
                 </a>
 
                 <?php
