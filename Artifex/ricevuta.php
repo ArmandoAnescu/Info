@@ -4,15 +4,17 @@ require 'connection.php';
 if(PHP_SESSION_NONE===session_status()){
     session_start();
 }
+$data=$_REQUEST['data_pagamento'];
 $somma=0;
-$prenotazioni=OttieniStorico();
+$prenotazioni=OttieniStoricoData($data);
+//var_dump($prenotazioni);
 $pdf=new TCPDF();
 $pdf->AddPage();//aggiungo una pagina al pdf
 $pdf->setFillColor(255,255,255);
 $pdf->Rect(0,0,210,297,'F');
 $pdf->setTextColor(3,86,252);
 $pdf->setFont('Helvetica','',18);
-$pdf->Cell(0,10,'Ricevuta pagamento prenotazione del ',0,1,'C');//riga del pdf
+$pdf->Cell(0,10,'Ricevuta pagamento prenotazione del '.$prenotazioni[0]['pagamento'],0,1,'C');//riga del pdf
 $pdf->Ln(80);
 $pdf->setTextColor(0,0,0);
 $pdf->setFont('Helvetica','',14);

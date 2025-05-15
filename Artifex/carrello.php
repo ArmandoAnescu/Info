@@ -2,6 +2,11 @@
 // carrello.php
 include 'components/header.php';
 include 'connection.php';
+if(!isset($_SESSION['user'])) {
+    // Se l'utente non è loggato, reindirizza alla pagina di login
+    header('Location: login.php');
+    exit();
+}
 $prenotazioni = OttieniPrenotazioni();
 $somma = 0;
 ?>

@@ -189,18 +189,11 @@ function OttieniPrenotazioni(){
         return null;
     }
 }
-
-function OttieniStorico(){
+function OttieniDatePagamento(){
     global $db;
-    $query="SELECT e.titolo,e.luogo,e.prezzo,g.nome as guida,l.nome as lingua,e.id,TIMEDIFF(e.ora_fine, e.ora_inizio) AS durata,DATE(e.ora_inizio) AS data,p.data_pagamento as pagamento 
+    $query="SELECT DISTINCT p.data_pagamento 
         FROM prenotare p
-    LEFT JOIN eventi e
-    ON e.id=p.evento
-    LEFT JOIN guide g
-    ON g.id=e.guida
-    LEFT JOIN lingue l
-    ON l.id=e.lingua
-    WHERE utente=:user";
+        WHERE utente=:user";
     if(session_status()===PHP_SESSION_NONE){
         session_start();
     }
@@ -216,7 +209,66 @@ function OttieniStorico(){
         return null;
     }
 }
-
+function OttieniStorico(){
+    global $db;
+    $date=OttieniDatePagamento();
+    $query="SELECT e.titolo,e.luogo,e.prezzo,g.nome as guida,l.nome as lingua,e.id,TIMEDIFF(e.ora_fine, e.ora_inizio) AS durata,DATE(e.ora_inizio) AS data,p.data_pagamento as pagamento 
+        FROM prenotare p
+    LEFT JOIN eventi e
+    ON e.id=p.evento
+    LEFT JOIN guide g
+    ON g.id=e.guida
+    LEFT JOIN lingue l
+    ON l.id=e.lingua
+    WHERE utente=:user AND data_pagamento=:data";
+    if(session_status()===PHP_SESSION_NONE){
+        session_start();
+    }
+    try {
+        $stm = $db->prepare($query);
+        foreach ($date as $d){
+            $data=$d['data_pagamento'];
+            $data=date('Y-m-d', strtotime($data));
+            $stm->bindValue(':data',$data);
+            $stm->bindValue(':user',$_SESSION['user']['email']);
+            $stm->execute();
+            $eventi[$data]=$stm->fetchAll(PDO::FETCH_ASSOC);
+        }
+        $stm->closeCursor();
+        return $eventi;
+    } catch (Exception $e) {
+        logError($e);
+        return null;
+    }
+}
+function OttieniStoricoData($data){
+    global $db;
+    $query="SELECT e.titolo,e.luogo,e.prezzo,g.nome as guida,l.nome as lingua,e.id,TIMEDIFF(e.ora_fine, e.ora_inizio) AS durata,DATE(e.ora_inizio) AS data,p.data_pagamento as pagamento 
+        FROM prenotare p
+    LEFT JOIN eventi e
+    ON e.id=p.evento
+    LEFT JOIN guide g
+    ON g.id=e.guida
+    LEFT JOIN lingue l
+    ON l.id=e.lingua
+    WHERE utente=:user AND data_pagamento=:data";
+    if(session_status()===PHP_SESSION_NONE){
+        session_start();
+    }
+    try {
+        $stm = $db->prepare($query);
+            $data=date('Y-m-d', strtotime($data));
+            $stm->bindValue(':data',$data);
+            $stm->bindValue(':user',$_SESSION['user']['email']);
+            $stm->execute();
+            $eventi=$stm->fetchAll(PDO::FETCH_ASSOC);
+        $stm->closeCursor();
+        return $eventi;
+    } catch (Exception $e) {
+        logError($e);
+        return null;
+    }
+}
 function Pagamento():bool{
     global $db;
     $eventi=OttieniPrenotazioni();
