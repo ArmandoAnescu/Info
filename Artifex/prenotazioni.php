@@ -68,6 +68,7 @@ $prenotazioni = OttieniStorico();
                                         <i class="fas fa-receipt me-2"></i> Scarica la ricevuta
                                     </a>
                                 </div>
+                                <br>
                             <?php } ?>
                     <?php }
                     ?>

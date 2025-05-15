@@ -193,7 +193,8 @@ function OttieniDatePagamento(){
     global $db;
     $query="SELECT DISTINCT p.data_pagamento 
         FROM prenotare p
-        WHERE utente=:user";
+        WHERE utente=:user
+        ORDER BY p.data_pagamento DESC";
     if(session_status()===PHP_SESSION_NONE){
         session_start();
     }
