@@ -40,9 +40,9 @@ $prenotazioni = OttieniStorico();
                             <td><?= $prenotazione['guida']; ?></td>
                             <td><?= $prenotazione['pagamento']; ?></td>
                             <td>
-                                <a class="btn btn-action btn-rimborso" href="action_page.php?action=rimborso&id=<?= $prenotazione['id']; ?>">
-                                    <i class="fas fa-undo"></i>
-                                    <span class="tooltip-text">Richiedi Rimborso </span>
+                                <a class="btn btn-action btn-rimborso tooltip" href="action_page.php?action=rimborso&id=<?= $prenotazione['id']; ?>">
+                                    <i class="fas fa-undo"></i> Rimborso
+                                    <span class="tooltip-text">Richiedi rimborso</span>
                                 </a>
                             </td>
                         </tr>
@@ -53,7 +53,7 @@ $prenotazioni = OttieniStorico();
 
             <div class="d-flex justify-content-between align-items-center mt-4">
                 <a href="ricevuta.php" class="btn btn-pagamento">
-                    <i class="fas fa-receipt me-2"></i>Scarica la ricevuta
+                    <i class="fas fa-credit-card me-2"></i> Scarica la ricevuta
                 </a>
 
                 <?php

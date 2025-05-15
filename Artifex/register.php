@@ -49,7 +49,7 @@ $lingue=OttieniLingue();
                 </select>
             <br>
             <br>
-                <button class="submit" type="submit">Registrati</button>
+                <button class="submit btn btn-action" type="submit">Registrati</button>
         </form>
     </div>
 

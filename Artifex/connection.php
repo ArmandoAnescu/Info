@@ -260,3 +260,48 @@ function RimuoviPrenotazioneStorico($evento){
     }
 
 }
+
+function OttieniInfoPersonali(){
+    global $db;
+    $query="SELECT u.telefono,u.nazionalita,l.nome as lingua  
+            FROM utenti u
+         JOIN lingue l ON l.id=u.lingua
+         WHERE u.email=:user";
+    if(session_status()===PHP_SESSION_NONE){
+        session_start();
+    }
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':user',$_SESSION['user']['email']);
+        $stm->execute();
+        $info=$stm->fetch(PDO::FETCH_ASSOC);
+        $stm->closeCursor();
+        return $info;
+    } catch (Exception $e) {
+        logError($e);
+        return null;
+    }
+}
+
+function ModificaDati(){
+    global $db;
+    $query="UPDATE utenti SET nome=:nome,email=:email,telefono=:telefono,nazionalita=:nazionalita,lingua=:lingua WHERE email=:user";
+    if(session_status()===PHP_SESSION_NONE){
+        session_start();
+    }
+    try {
+        $stm = $db->prepare($query);
+        $stm->bindValue(':nome',$_POST['nome']);
+        $stm->bindValue(':email',$_POST['email']);
+        $stm->bindValue(':telefono',$_POST['telefono']);
+        $stm->bindValue(':nazionalita',$_POST['nazionalita']);
+        $stm->bindValue(':lingua',$_POST['lingua_base']);
+        $stm->bindValue(':user',$_SESSION['user']['email']);
+        $stm->execute();
+        $stm->closeCursor();
+        return true;
+    } catch (Exception $e) {
+        logError($e);
+        return false;
+    }
+}

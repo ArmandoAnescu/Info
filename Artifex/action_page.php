@@ -75,4 +75,18 @@ switch ($_REQUEST['action']) {
         } else {
             header('Location: carrello.php?msg=Errore nel rimborso');
         }        break;
+    case 'update':
+        $username = $_POST['nome'];
+        $email = $_POST['email'];
+        $lingua=$_POST['lingua_base'];
+        $nazionalita=$_POST['nazionalita'];
+        $telefono=$_POST['telefono'];
+        var_dump($_POST);
+        $result = ModificaDati($username, $email,$lingua,$nazionalita,$telefono);
+        if ($result) {
+            header('Location: account.php?msg=Modifica completata');
+        } else {
+            header('Location: account.php?msg=Errore nella modifica');
+        }
+        break;
 }

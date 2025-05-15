@@ -6,15 +6,17 @@ $prenotazioni = OttieniPrenotazioni();
 $somma = 0;
 ?>
 
-<!-- Header della pagina -->
-<div class="container mt-5 mb-5">
-    <div class="page-header text-center">
-        <h1>Il tuo carrello</h1>
-        <p>Rivedi i tuoi eventi selezionati e procedi al checkout</p>
-    </div>
-</div>
+
 
 <div class="container mt-5 mb-5">
+    <!-- Header della pagina -->
+    <div class="page-header text-center">
+        <div class="container">
+            <h1>Il tuo carrello</h1>
+            <p>Rivedi i tuoi eventi selezionati e procedi al checkout</p>
+        </div>
+    </div>
+    <br>
     <?php if($prenotazioni): ?>
         <div class="table-container">
             <table class="custom-table">

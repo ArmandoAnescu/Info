@@ -22,7 +22,7 @@ require 'components/header.php';
         <input type="password" required name="password" id="password">
         <br>
         <br>
-        <input type="submit" name="invio" id="submit" placeholder="Accedi">
+        <input type="submit" class="btn btn-action" name="invio" id="submit" placeholder="Accedi">
     </form>
 </div>
 
